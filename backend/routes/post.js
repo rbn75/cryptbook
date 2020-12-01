@@ -1,5 +1,4 @@
 const Router=require('express')
-const { get } = require('mongoose')
 const {
     getPostDetail,
     getAllUserPosts,
