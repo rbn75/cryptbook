@@ -12,7 +12,7 @@ const User = require('../models/User');
 // View
 exports.getPostDetail = async (req, res) => {
     const { postId } = req.params
-    const post = away  Post.findById(postId)
+    const post = await  Post.findById(postId)
 
     res.status(200).json(post)
 }
