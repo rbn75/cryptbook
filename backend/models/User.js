@@ -23,6 +23,8 @@ const userSchema = new Schema(
   }
 );
 
+
+//Local strategy handled by plugin, no customized options for now
 userSchema.plugin(PLM, { usernameField: 'email'});
 
 module.exports = model('User', userSchema);

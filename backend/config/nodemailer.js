@@ -8,6 +8,7 @@ let transporter=nodemailer.createTransport({
     }
 })
 
+//Signup confirmation
 let transporter=(name, email)=>{
     return transporter.sendMail({
         from: 'MyCrypt',
