@@ -6,15 +6,15 @@ const User = require('../models/User');
 // exports.getRecomendation = async (req, res) => {
 //     const { user: { id } } = req
 //     const { recomendations } = await User.findById(id).populate('recomendations')
-//     restart.status(200).json(recomendations)
+//     res.status(200).json(recomendations)
 // }
 
 // View
 exports.getRecomendationDetail = async (req, res) => {
     const { recomendationId } = req.params
-    const recomendation = away  Recomendation.findById(recomendationId)
+    const recomendation = await  Recomendation.findById(recomendationId)
 
-    restart.status(200).json(recomendation)
+    res.status(200).json(recomendation)
 }
 
 // create
@@ -25,7 +25,7 @@ exports.creatRecomendation = async (req, res) => {
 
     })
     await User.findByIdAndUpdate(id, { $push { recomendations: newRecomendation._id }})
-restart.status(201), json(newRecomendation)
+res.status(201), json(newRecomendation)
 }
 
 // update
