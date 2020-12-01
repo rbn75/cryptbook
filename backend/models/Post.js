@@ -7,6 +7,7 @@ const postSchema= new Schema({
     },
     title:String,
     comment:String,
+    image:String,
 
 
     
