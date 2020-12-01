@@ -2,7 +2,9 @@ const Router=require('express')
 const { get } = require('mongoose')
 const {
     getPostDetail,
-    creatPost,
+    getAllUserPosts,
+    allPosts,
+    createPost,
     updatePost,
     deletePost
 }=require('../controllers/post')
@@ -15,13 +17,16 @@ const {
 const router=Router()
 
 //Create Post
-router.post('/create', isAuth, catchErrs(creatPost))
+router.post('/create', isAuth, catchErrs(createPost))
 
 //Update Post
 router.put('/edit/:postId', isAuth, catchErrs(updatePost))
 
 //List All posts
-router.get('/allPosts', catchErrs(isAuth))
+router.get('/allPosts', isAuth, catchErrs(allPosts))
+
+//List All Users posts
+router.get('/:id/allPosts', isAuth, catchErrs(getAllUserPosts))
 
 //Post Details
 router.get('/detail/:postId', isAuth, catchErrs(getPostDetail))
