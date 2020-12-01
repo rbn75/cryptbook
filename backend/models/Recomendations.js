@@ -8,8 +8,8 @@ const recomendationSchema= new Schema({
     },
     title:String,
     estimate:String,
-    Actual:String,
-    Surprise:String,
+    actual:String,
+    surprise:String,
     recommendations:[{buy:String, sell:String, hold: String }],
     
 },{
