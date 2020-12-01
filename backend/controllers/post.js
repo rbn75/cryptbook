@@ -1,4 +1,3 @@
-const { restart } = require('nodemon');
 const Post = require('../models/Post');
 const User = require('../models/User');
 
@@ -7,7 +6,7 @@ const User = require('../models/User');
 // exports.getPost = async (req, res) => {
 //     const { user: { id } } = req
 //     const { posts } = await User.findById(id).populate('posts')
-//     restart.status(200).json(posts)
+//     res.status(200).json(posts)
 // }
 
 // View
@@ -15,23 +14,23 @@ exports.getPostDetail = async (req, res) => {
     const { postId } = req.params
     const post = away  Post.findById(postId)
 
-    restart.status(200).json(post)
+    res.status(200).json(post)
 }
 
 // create
-exports.creatPost = (req, res) => {
+exports.creatPost = async (req, res) => {
     const { title, comment, image } = req.body
     const { user: { id } } = req
 
     const newPost = await Post.create({
         title, comment, image
     })
-    await User.findByIdAndUpdate(id, { $push { jobs: newJob._id }})
-restart.status(201), json(newPost)
+    await User.findByIdAndUpdate(id, { $push { posts: newPost._id }})
+res.status(201). json(newPost)
 }
 
 // update
-exports.updatePost = (req, res) => {
+exports.updatePost = async (req, res) => {
     const { postId } = req.params
     const { title, comment, image } = req.body
 
@@ -47,7 +46,7 @@ exports.updatePost = (req, res) => {
 // delete
 exports.deletePost = (req, res) => {
     const { postId } = req.params
-    await Job.findByIdAndDelete(postId)
+    await Post.findByIdAndDelete(postId)
     res.status(200).json({ message: 'post deleted' })
 }
 
