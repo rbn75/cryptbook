@@ -4,7 +4,18 @@ const PLM = require('passport-local-mongoose');
 const userSchema = new Schema(
   {
     email: String,
-    name: String
+    name: String,
+    lastname: String,
+    password: String,
+    googleID:String,
+    image:{
+      type:String,
+      default:'./images/ProfilePic.png'
+    },
+    followers:[{
+      type: Schema.Types.ObjectId,
+      ref:'User'
+    }]
   },
   {
     timestamps: true,
@@ -12,6 +23,6 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.plugin(PLM, { usernameField: 'email' });
+userSchema.plugin(PLM, { usernameField: 'email'});
 
 module.exports = model('User', userSchema);
