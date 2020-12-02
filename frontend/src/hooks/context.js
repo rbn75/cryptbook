@@ -26,11 +26,11 @@ export const DataCtxProvider = props => {
     const value = { user, login, logout }
 
     return (
-        // DataContext.Provider???
+        // DataContext.Provider??? 
         <DataContext.Provider {...props} value={value} />
     )
 }
 
-
+// useContextData goes to components
 export const useContextData = () => useContext(DataContext)
 
