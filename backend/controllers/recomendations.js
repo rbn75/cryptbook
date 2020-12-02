@@ -26,7 +26,7 @@ exports.allRecommendations = async (req, res) => {
 
 // create
 exports.creatRecomendation = async (req, res) => {
-    const { estimate,
+    const { 
         title,
         estimate,
         actual,
@@ -49,7 +49,7 @@ res.status(201), json(newRecomendation)
 // update
 exports.updateRecomendations = async (req, res) => {
     const { recomendationId } = req.params
-    const { estimate,
+    const {
         title,
         estimate,
         actual,
