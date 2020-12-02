@@ -7,14 +7,17 @@ const recomendationSchema= new Schema({
         ref:'User',
     },
     title:String,
-    estimate:String,
-    actual:String,
-    surprise:String,
+    estimate:Number,
+    actual:Number,
+    surprise:Number,
     crypto:{
         type:String,
         enum:["BTC", "XRP", "ETH"]
     },
-    recommendations:[{buy:String, sell:String, hold: String }],
+    recommendations:{
+        type:String,
+        enum:["Buy", "Sell", "Hold"]
+    },
     
 },{
     timestamps:true
