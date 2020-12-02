@@ -4,6 +4,8 @@ const baseURL = process.env.NODE_ENV === 'development' ?
   'http://localhost:3000/auth' :
   '/auth'
 
+  // /routes/auth
+
 const authService = axios.create({
   baseURL,
   withCredentials: true

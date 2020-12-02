@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-const prefix = '/recomendations'
+const prefix = '/recoms'
 
 const baseURL = process.env.NODE_ENV === 'development' ?
-  'http://localhost:3000/recomendations' :
-  '/recomendations'
+  `http://localhost:3000${prefix}` :
+  prefix
 
 const recomnService = axios.create({
   baseURL,

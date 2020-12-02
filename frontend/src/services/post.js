@@ -3,8 +3,8 @@ import axios from 'axios'
 const prefix = '/post'
 
 const baseURL = process.env.NODE_ENV === 'development' ?
-  'http://localhost:3000/post' :
-  '/post'
+  `http://localhost:3000${prefix}` :
+  prefix
 
 const postService = axios.create({
   baseURL,
