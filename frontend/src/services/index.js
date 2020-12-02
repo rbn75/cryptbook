@@ -1,11 +1,17 @@
-import axios from 'axios';
-let baseURL;
+import axios from 'axios'
 
-process.env.NODE_ENV === 'production'
-  ? (baseURL = 'here should be your production endpoint')
-  : (baseURL = 'http://localhost:3000');
 
-const service = axios.create({ withCredentials: true, baseURL });
+
+const baseURL = process.env.NODE_ENV === 'development' ?
+  'http://localhost:3000/auth' :
+  '/auth'
+
+const authService = axios.create({
+  baseURL,
+  withCredentials: true
+})
+
+//habilitar withCredentials:true en el backend
 
 const MY_SERVICE = {
   test: async () => {
@@ -19,6 +25,9 @@ const MY_SERVICE = {
   },
   logOut: async () => {
     return await SERVICE.get('/logout');
+  },
+  currentUser: async () => {
+    return await SERVICE.get('/current-user');
   }
 };
 
