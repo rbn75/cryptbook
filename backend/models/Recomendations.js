@@ -10,6 +10,10 @@ const recomendationSchema= new Schema({
     estimate:String,
     actual:String,
     surprise:String,
+    crypto:{
+        type:String,
+        enum:["BTC", "XRP", "ETH"]
+    },
     recommendations:[{buy:String, sell:String, hold: String }],
     
 },{

@@ -2,19 +2,26 @@ const Recomendation = require('../models/Recomendations');
 const User = require('../models/User');
 
 
-// crud for posting,requires postId... 
-// exports.getRecomendation = async (req, res) => {
-//     const { user: { id } } = req
-//     const { recomendations } = await User.findById(id).populate('recomendations')
-//     res.status(200).json(recomendations)
-// }
+//Get Recommendations by crypto for showing... missing filtering by crypt, might just filter on the frontend 
+//   exports.getcryptoRecomendations = async (req, res) => {
+//       const recomsFiltered={
+//           'BTC':[],
+//           'XRP':[],
+//           'ETH':[]
+//       }
+//       const { crypt } = req.params
+//       const { recomendations } = await Recomendation.find()
+//       recomendations.forEach(recomendation=>{
+//           recomendationsFiltered
+//       })
+//       res.status(200).json(recomendations)
+//   }
 
-// View
-exports.getRecomendationDetail = async (req, res) => {
-    const { recomendationId } = req.params
-    const recomendation = await  Recomendation.findById(recomendationId)
+// Get all recommendations
+exports.allRecommendations = async (req, res) => {
+    const recomendations = await  Recomendation.find()
 
-    res.status(200).json(recomendation)
+    res.status(200).json(recomendations)
 }
 
 // create
@@ -24,7 +31,7 @@ exports.creatRecomendation = async (req, res) => {
         estimate, actual, surprise, recomendation
 
     })
-    await User.findByIdAndUpdate(id, { $push { recomendations: newRecomendation._id }})
+    await User.findByIdAndUpdate(id, { $push: { recomendations: newRecomendation._id }})
 res.status(201), json(newRecomendation)
 }
 
@@ -40,14 +47,11 @@ exports.updateRecomendations = async (req, res) => {
     res.status(200).json(updateRecomendation)
 }
 
-
-
-// delete, don´t know if needed
-// exports.deleteRecomendation = (req, res) => {
-//     const { recomendationId } = req.params
-//     await Recomendation.findByIdAndDelete(recomendationId)
-//     res.status(200).json({ message: 'recomendation deleted' })
-// }
+ exports.deleteRecomendation = async (req, res) => {
+     const { recomendationId } = req.params
+     await Recomendation.findByIdAndDelete(recomendationId)
+     res.status(200).json({ message: 'recomendation deleted' })
+ }
 
 
 

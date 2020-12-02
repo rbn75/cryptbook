@@ -62,7 +62,7 @@ exports.updatePost = async (req, res) => {
 
 
 // delete
-exports.deletePost = (req, res) => {
+exports.deletePost = async (req, res) => {
     const { postId } = req.params
     await Post.findByIdAndDelete(postId)
     res.status(200).json({ message: 'post deleted' })

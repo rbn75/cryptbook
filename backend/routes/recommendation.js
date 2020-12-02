@@ -1,8 +1,9 @@
 const Router=require('express')
 const {
-    getRecomendationDetail,
+    allRecommendations,
     creatRecomendation,
-    updateRecomendations
+    updateRecomendations,
+    deleteRecomendation
 }=require('../controllers/recomendations')
 
 const {
@@ -13,18 +14,18 @@ const {
 const router=Router()
 
 //Create Recomendation
-router.post('/create', isAuth, catchErrs())
+router.post('/create', isAuth, catchErrs(creatRecomendation))
 
 //Update Recomendation
-router.put('/edit/postId', isAuth, catchErrs())
+router.put('/edit/postId', isAuth, catchErrs(updateRecomendations))
 
 //List All Recomendations
-router.get('/allRecommendations', isAuth, catchErrs())
+router.get('/allRecommendations', isAuth, catchErrs(allRecommendations))
 
 //List All Crypto Recomendations
-router.get('/:crypt/recommendations', isAuth, catchErrs())
+// router.get('/:crypt/recommendations', isAuth, catchErrs())
 
 //Delete Recomendation
-router.get('/delete/:recomendationId', isAuth, catchErrs())
+router.get('/delete/:recomendationId', isAuth, catchErrs(deleteRecomendation))
 
 module.exports=router
