@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Home() {
+function BTC() {
   return (
     <div>
-      <h1>Home</h1>
+      <h1>BTC test</h1>
     </div>
   );
 }
 
-export default Home;
+export default BTC;
