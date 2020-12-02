@@ -5,15 +5,7 @@ const passport = require('passport');
 // const router = require('../routes/auth')
 
 exports.signup = async (req, res) => {
-  const hashPass = bcrypt.hashSync(password, bcrypt.genSalt(12))
-
-  const newUser = await User.create({
-    email,
-    name,
-    lastname,
-    password:hashPass
-  })
-  newUser.password = null
+  const newUser= await User.register(req.body, req.body.password)
   res.status(201).json(newUser)
 }
 

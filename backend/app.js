@@ -9,6 +9,7 @@ const path = require('path');
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('./config/passport');
+const MongoStore=require('connect-mongo')(session)
 
 mongoose
   .connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -32,6 +33,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     secret: process.env.SECRET,
+    store: new MongoStore({mongooseConnection:mongoose.connection}),
     cookie: { maxAge: 1000 * 60 * 60 }
   })
 );

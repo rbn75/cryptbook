@@ -10,8 +10,8 @@ exports.allPosts=async(req,res)=>{
 
 // All Users Posts
  exports.getAllUserPosts = async (req, res) => {
-     const { user: { id } } = req
-     const { posts } = await User.findById(id).populate('posts')
+    const userId=req.user._id
+     const { posts } = await User.findById(userId).populate('posts')
      res.status(200).json(posts)
  }
 
@@ -26,7 +26,7 @@ exports.getPostDetail = async (req, res) => {
 // create
 exports.createPost = async (req, res) => {
     const { title, comment, image } = req.body
-    const { user: { id } } = req
+    const userId=req.user._id
 
     if(!title || !comment){
         return res
@@ -35,10 +35,12 @@ exports.createPost = async (req, res) => {
     }
 
     const newPost = await Post.create({
-        title, comment, image
+        userId,
+        title, 
+        comment, 
+        image
     })
-    await User.findByIdAndUpdate(id, { $push: { posts: newPost._id }})
-res.status(201). json(newPost)
+res.status(201).json(newPost)
 }
 
 // update

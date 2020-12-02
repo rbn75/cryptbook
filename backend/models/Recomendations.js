@@ -14,7 +14,7 @@ const recomendationSchema= new Schema({
         type:String,
         enum:["BTC", "XRP", "ETH"]
     },
-    recommendations:{
+    recommendation:{
         type:String,
         enum:["Buy", "Sell", "Hold"]
     },

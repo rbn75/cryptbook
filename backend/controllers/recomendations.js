@@ -26,15 +26,16 @@ exports.allRecommendations = async (req, res) => {
 
 // create
 exports.creatRecomendation = async (req, res) => {
+    const userId=req.user._id
     const { 
         title,
         estimate,
         actual,
         crypto,
         surprise,
-        recomendation } = req.body
+        recomendation} = req.body
     const newRecomendation = await Recomendation.create({
-        estimate,
+        userId,
         title,
         estimate,
         actual,
@@ -42,12 +43,12 @@ exports.creatRecomendation = async (req, res) => {
         surprise,
         recomendation
     })
-    await User.findByIdAndUpdate(id, { $push: { recomendations: newRecomendation._id }})
-res.status(201), json(newRecomendation)
+res.status(201).json(newRecomendation)
 }
 
 // update
 exports.updateRecomendations = async (req, res) => {
+    console.log(req.params)
     const { recomendationId } = req.params
     const {
         title,
@@ -57,8 +58,7 @@ exports.updateRecomendations = async (req, res) => {
         surprise,
         recomendation } = req.body
 
-    const updateRecomendations = await Recomendation.findByIdAndUpdate(recomendationId, {
-        estimate,
+    const updatedRecomendation = await Recomendation.findByIdAndUpdate(recomendationId, {
         title,
         estimate,
         actual,
@@ -67,7 +67,7 @@ exports.updateRecomendations = async (req, res) => {
         recomendation
     }, { new: true })
 
-    res.status(200).json(updateRecomendation)
+    res.status(200).json(updatedRecomendation)
 }
 
  exports.deleteRecomendation = async (req, res) => {
