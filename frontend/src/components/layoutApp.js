@@ -13,16 +13,31 @@ function LayoutApp({children}) {
       <Row>
           <Col span={12}>
       <Menu theme="dark" mode="horizontal" >
-        <Menu.Item key="1"><Link to='/btc'>BTC</Link></Menu.Item>
-        <Menu.Item key="2"><Link to='/eth'>ETH</Link></Menu.Item>
-        <Menu.Item key="3"><Link to='/xrp'>XRP</Link></Menu.Item>
+        <Menu.Item key="1">
+          <Link to='/btc'>BTC</Link>
+          </Menu.Item>
+        <Menu.Item key="2">
+          <Link to='/eth'>ETH</Link>
+          </Menu.Item>
+        <Menu.Item key="3">
+          <Link to='/xrp'>XRP</Link>
+          </Menu.Item>
       </Menu>
       </Col>
       <Col span={12}>
       <Menu theme="dark" mode="horizontal" style={{textAlign:"right"}}>
-        <Menu.Item key="1"><Link to='/btc'>BTC</Link></Menu.Item>
-        <Menu.Item key="2"><Link to='/eth'>ETH</Link></Menu.Item>
-        <Menu.Item key="3"><Link to='/xrp'>XRP</Link></Menu.Item>
+        <Menu.Item key="1">
+          <Link to='/profile'>Profile</Link>
+        </Menu.Item>
+        <Menu.Item key="2">
+          <Link to='/login'>Login</Link>
+        </Menu.Item>
+        <Menu.Item key="3">
+          <Link to='/signup'>Signup</Link>
+        </Menu.Item>
+        <Menu.Item key="4">
+          <Link to='/logout'>Logout</Link>
+        </Menu.Item>
       </Menu>
       </Col>
       </Row>
