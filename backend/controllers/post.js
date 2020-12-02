@@ -12,6 +12,7 @@ exports.allPosts=async(req,res)=>{
  exports.getAllUserPosts = async (req, res) => {
     const userId=req.user._id
      const { posts } = await User.findById(userId).populate('posts')
+     console.log(posts)
      res.status(200).json(posts)
  }
 
@@ -40,6 +41,7 @@ exports.createPost = async (req, res) => {
         comment, 
         image
     })
+    await User.findByIdAndUpdate(userId, { $push: { posts: newPost._id } })
 res.status(201).json(newPost)
 }
 

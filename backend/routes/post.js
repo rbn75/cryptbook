@@ -25,7 +25,7 @@ router.put('/edit/:postId', isAuth, catchErrs(updatePost))
 router.get('/allPosts', isAuth, catchErrs(allPosts))
 
 //List All Users posts
-router.get('/:id/allPosts', isAuth, catchErrs(getAllUserPosts))
+router.get('/allUserPosts', isAuth, catchErrs(getAllUserPosts))
 
 //Post Details
 router.get('/detail/:postId', isAuth, catchErrs(getPostDetail))

@@ -46,6 +46,14 @@ exports.creatRecomendation = async (req, res) => {
 res.status(201).json(newRecomendation)
 }
 
+//Recommendation Detail
+exports.getRecomDetail = async (req, res) => {
+    const { recomendationId } = req.params
+    const recom = await  Recomendation.findById(recomendationId)
+
+    res.status(200).json(recom)
+}
+
 // update
 exports.updateRecomendations = async (req, res) => {
     console.log(req.params)

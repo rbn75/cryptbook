@@ -12,6 +12,10 @@ const userSchema = new Schema(
       type:String,
       default:'./images/ProfilePic.png'
     },
+    posts:[{
+      type: Schema.Types.ObjectId,
+      ref:"Post"
+    }],
     followers:[{
       type: Schema.Types.ObjectId,
       ref:'User'

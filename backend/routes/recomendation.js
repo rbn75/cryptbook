@@ -3,6 +3,7 @@ const {
     allRecommendations,
     creatRecomendation,
     updateRecomendations,
+    getRecomDetail,
     deleteRecomendation
 }=require('../controllers/recomendations')
 
@@ -21,6 +22,9 @@ router.put('/edit/:recomendationId', isAuth, catchErrs(updateRecomendations))
 
 //List All Recomendations
 router.get('/allRecommendations', isAuth, catchErrs(allRecommendations))
+
+//Recom Details
+router.get('/detail/:recomendationId', isAuth, catchErrs(getRecomDetail))
 
 //List All Crypto Recomendations
 // router.get('/:crypt/recommendations', isAuth, catchErrs())
