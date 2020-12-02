@@ -1,32 +1,22 @@
-const express = require('express');
+const express = require("express");
+const passport = require('passport');
 const router = express.Router();
-const User = require('../models/User');
-const passport = require('../config/passport');
 
-router.post('/signup', (req, res, next) => {
-  User.register(req.body, req.body.password)
-    .then((user) => res.status(201).json({ user }))
-    .catch((err) => res.status(500).json({ err }));
-});
+const { signup, login, logout, currentUser, googleInit, googleCb } = require('../controllers/auth')
+// Bcrypt to encrypt passwords
 
-router.post('/login', passport.authenticate('local'), (req, res, next) => {
-  const { user } = req;
-  res.status(200).json({ user });
-});
 
-router.get('/logout', (req, res, next) => {
-  req.logout();
-  res.status(200).json({ msg: 'Logged out' });
-});
+router.post("/login", login);
 
-router.get('/profile', isAuth, (req, res, next) => {
-  User.findById(req.user._id)
-    .then((user) => res.status(200).json({ user }))
-    .catch((err) => res.status(500).json({ err }));
-});
 
-function isAuth(req, res, next) {
-  req.isAuthenticated() ? next() : res.status(401).json({ msg: 'Log in first' });
-}
+router.post("/signup", signup);
+
+router.get('/current-user', currentUser)
+
+router.get("/logout", logout);
+
+router.get('/google', googleInit)
+
+router.get('/google/callback', googleCb)
 
 module.exports = router;
