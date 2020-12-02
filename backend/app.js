@@ -48,7 +48,7 @@ app.use(logger('dev'));
 const index = require('./routes/index');
 const auth = require('./routes/auth');
 const post=require('./routes/post')
-const recoms=require('./routes/recommendation')
+const recoms=require('./routes/recomendation')
 app.use('/', index);
 app.use('/', auth);
 app.use('/posts', post)

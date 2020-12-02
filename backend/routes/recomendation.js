@@ -17,7 +17,7 @@ const router=Router()
 router.post('/create', isAuth, catchErrs(creatRecomendation))
 
 //Update Recomendation
-router.put('/edit/postId', isAuth, catchErrs(updateRecomendations))
+router.put('/edit/:recommendationId', isAuth, catchErrs(updateRecomendations))
 
 //List All Recomendations
 router.get('/allRecommendations', isAuth, catchErrs(allRecommendations))
