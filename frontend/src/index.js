@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Router from './Router';
 import * as serviceWorker from './serviceWorker';
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.css';
+import { DataCtxProvider } from './hooks/context'
 
 ReactDOM.render(
-    <Router />, 
+    <DataCtxProvider>
+        <Router />
+
+    </DataCtxProvider>,
+
     document.getElementById('root')
-    );
+);
 
 serviceWorker.unregister();

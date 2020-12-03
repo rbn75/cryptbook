@@ -12,7 +12,7 @@ export const DataCtxProvider = props => {
             login(data);
         }
         getSessionData()
-    },[])
+    }, [])
 
     const login = userInfo => {
         setUser(userInfo)
