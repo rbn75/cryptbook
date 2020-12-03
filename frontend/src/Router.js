@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from './pages/home/Home';
-import Profile from './pages/profile/Profile';
-import Btc from './pages/btc/Btc';
-import Xrp from './pages/xrp/Xrp';
-import Eth from './pages/eth/Eth';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Btc from './pages/Btc';
+import Xrp from './pages/Xrp';
+import Eth from './pages/Eth';
 import NotFound from './components/404/NotFound.js';
+import LayoutApp from './components/layoutApp'
+
 
 
 // testing routes
@@ -14,6 +16,7 @@ import NotFound from './components/404/NotFound.js';
 
 const Router = () => (
   <BrowserRouter>
+  <LayoutApp>
     <Switch>
       <Route exact path="/" component={Home} />
       <Route component={Profile} exact path='/profile' />
@@ -22,6 +25,7 @@ const Router = () => (
       <Route component={Eth} exact path='/eth' />
       <Route component={NotFound} />
     </Switch>
+    </LayoutApp>
   </BrowserRouter>
 );
 
