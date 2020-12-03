@@ -24,7 +24,7 @@ function LayoutApp({ children }) {
                   <Link to='/eth'>ETH</Link>
                 </Menu.Item>
                 <Menu.Item key="3">
-                  <Link to='/xrp'>XRP</Link>
+                  <Link to='/ltc'>LTC</Link>
                 </Menu.Item>
               </Menu>
             </Col>

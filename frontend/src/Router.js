@@ -3,12 +3,14 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Btc from './pages/Btc';
-import Xrp from './pages/Xrp';
+import Ltc from './pages/Ltc';
 import Eth from './pages/Eth';
 import NotFound from './components/404/NotFound.js';
 import LayoutApp from './components/layoutApp'
+
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+
 
 
 
@@ -20,13 +22,13 @@ const Router = () => (
   <BrowserRouter>
   <LayoutApp>
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route component={Profile} exact path='/profile' />
-      <Route component={Btc} exact path='/btc' />
-      <Route component={Xrp} exact path='/xrp' />
-      <Route component={Eth} exact path='/eth' />
-      <Route component={Login} exact path='/login' />
-      <Route component={Signup} exact path='/signup' />
+      <Route component={Home} path="/" exact />
+      <Route component={Profile} path='/profile' />
+      <Route component={Login} path='/login' />
+      <Route component={Signup} path='/signup' />
+      <Route component={Btc} path='/btc' />
+      <Route component={Ltc} path='/ltc' />
+      <Route component={Eth} path='/eth' />
       <Route component={NotFound} />
     </Switch>
     </LayoutApp>
