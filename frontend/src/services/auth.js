@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-const baseURL = process.env.NODE_ENV === 'development' ?
-  'http://localhost:3000/auth' :
-  '/auth'
+const baseURL = 'http://localhost:3000'
 
   // /routes/auth
 
