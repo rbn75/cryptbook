@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios'
-import {VictoryLine, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack, VictoryLabel} from 'victory'
-import { Spin, Row, Col,List, Avatar, Space  } from 'antd';
+import {VictoryLine, VictoryChart, VictoryAxis, VictoryLabel, VictoryVoronoiContainer, VictoryTooltip} from 'victory'
+import { Spin, Row, Col,List, Avatar, Space, Typography  } from 'antd';
 import { LoadingOutlined, MessageOutlined, LikeOutlined, StarOutlined  } from '@ant-design/icons';
 import {Helmet} from "react-helmet";
 
@@ -14,6 +14,8 @@ const IconText = ({ icon, text }) => (
     {text}
   </Space>
 );
+
+const {Text}=Typography
 
 function BTC() {
   const [bitcoins, setBitcoin]=useState(null)
@@ -47,7 +49,33 @@ function BTC() {
       <div></div>
 
       <Row gutter={30}>
-        <Col span={10}>
+        <Col span={14}>
+      {bitcoins?
+      <VictoryChart
+      height={200}
+      containerComponent={<VictoryVoronoiContainer
+        labels={({ datum }) => `$${datum.y}, ${datum.x.slice(0,16)} `}
+        labelComponent={
+          <VictoryTooltip  dy={-1} constrainToVisibleArea />
+        }
+      />
+      }
+      >
+        <VictoryLabel text="BTC/USD Price" x={225} y={30} textAnchor="middle"/>
+      <VictoryAxis dependentAxis/>
+      <VictoryLine
+        style={{
+          data: { stroke: "#c43a31" },
+          parent: { border: "1px solid #ccc"}
+        }}
+        data={bitcoins.map(b=>({x:b.time_close,y:b.price_close}))}
+      />
+      
+    </VictoryChart>: <LoadingOutlined style={{ fontSize: 24 }} spin />
+      
+    }
+    </Col>
+    <Col span={10}>
           {bitcoinsNews?
           <List
           itemLayout="vertical"
@@ -56,7 +84,8 @@ function BTC() {
             onChange: page => {
               console.log(page);
             },
-            pageSize: 4,
+            pageSize: 3,
+            showLessItems:true
           }}
           dataSource={bitcoinsNews}
           renderItem={item => (
@@ -71,34 +100,19 @@ function BTC() {
               }
             >
               <List.Item.Meta
-                title={<a href={item.link}>{item.headline}</a>}
-                description={item.summary}
+                title={<a href={item.link} target="_blank">{item.headline}</a>}
+                description={item.summary.length>100?
+                   `${item.summary.substring(0,100)}...`:item.summary}
               />
+              <Text type="secondary" style={{fontSize:10}}><b>Source:</b> {item.provider}</Text>
             </List.Item>
+            
           )}
         />:<LoadingOutlined style={{ fontSize: 24 }} spin />
           }
         
 
         </Col>
-        <Col span={14}>
-      <h1>BTC/USD</h1>
-      {bitcoins?
-      <VictoryChart
-      theme={VictoryTheme.material}
-      >
-      <VictoryAxis dependentAxis/>
-      <VictoryLine
-        style={{
-          data: { stroke: "#c43a31" },
-          parent: { border: "1px solid #ccc"}
-        }}
-        data={bitcoins.map(b=>({x:b.time_close,y:b.price_close}))}
-      />
-    </VictoryChart>: <LoadingOutlined style={{ fontSize: 24 }} spin />
-      
-    }
-    </Col>
 
   </Row>
 
