@@ -7,8 +7,10 @@ import Ltc from './pages/Ltc';
 import Eth from './pages/Eth';
 import NotFound from './components/404/NotFound.js';
 import LayoutApp from './components/layoutApp'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
+
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+
 
 
 
