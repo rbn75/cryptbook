@@ -4,9 +4,12 @@ import './index.css';
 import Router from './Router';
 import * as serviceWorker from './serviceWorker';
 import 'antd/dist/antd.css'
+import 'victory';
+
 
 ReactDOM.render(
-    <Router />, 
+    
+    <Router />,
     document.getElementById('root')
     );
 

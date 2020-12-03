@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 
 
+
 // testing routes
 // const Profile = () => <h1>profile</h1>
 
@@ -19,7 +20,7 @@ const Router = () => (
   <BrowserRouter>
   <LayoutApp>
     <Switch>
-      <Route exact path="/" component={Home} exact />
+      <Route component={Home} path="/" exact />
       <Route component={Profile} path='/profile' />
       <Route component={Login} path='/login' />
       <Route component={Signup} path='/signup' />
