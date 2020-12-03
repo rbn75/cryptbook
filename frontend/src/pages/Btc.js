@@ -1,43 +1,92 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios'
 import {VictoryLine, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack, VictoryLabel} from 'victory'
-import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Spin, Row, Col,List, Avatar, Space  } from 'antd';
+import { LoadingOutlined, MessageOutlined, LikeOutlined, StarOutlined  } from '@ant-design/icons';
+import {Helmet} from "react-helmet";
 
-let baseURL= 'http://rest-sandbox.coinapi.io/v1/ohlcv/GEMINI_SPOT_BTC_USD/latest?period_id=1HRS'
+let priceURL= 'http://rest-sandbox.coinapi.io/v1/ohlcv/GEMINI_SPOT_BTC_USD/latest?period_id=1HRS'
+let newsURL='https://feed.cryptoquote.io/api/v1/news/headlines?search=BTC&key=778fae00-359b-11eb-a7c8-83b5e7f8291c'
+
+const IconText = ({ icon, text }) => (
+  <Space>
+    {React.createElement(icon)}
+    {text}
+  </Space>
+);
 
 function BTC() {
   const [bitcoins, setBitcoin]=useState(null)
+  const [bitcoinsNews, setBitcoinNews]=useState(null)
 
-  const datatest = [
-    {quarter: 1, earnings: 13000},
-    {quarter: 2, earnings: 16500},
-    {quarter: 3, earnings: 14250},
-    {quarter: 4, earnings: 19000}
-  ];
 
    useEffect(()=>{
+    
+
      async function getBitcoin(){
-       const {data}=await axios.get(baseURL, {headers:{'X-CoinAPI-Key':'977F32DF-8B2A-4AB3-B2EC-6997426FE65D'}})
-       console.log(data)
-       let datag=data.map(b=>({x:b.price_close,y:b.time_close}))
+       const {data}=await axios.get(priceURL, {headers:{'X-CoinAPI-Key': "977F32DF-8B2A-4AB3-B2EC-6997426FE65D" }})
        setBitcoin(data)
-       console.log(datag)
+     }
+     
+     async function getNews(){
+       const {data}=await axios.get(newsURL)
+       console.log(data)
+       setBitcoinNews(data)
        
      }
-     getBitcoin()
+     
       
+     getBitcoin()
+     getNews()
    },[])
+  
 
-   
-
+  
   return (
     <div>
+      <div></div>
+
+      <Row gutter={30}>
+        <Col span={10}>
+          {bitcoinsNews?
+          <List
+          itemLayout="vertical"
+          size="small"
+          pagination={{
+            onChange: page => {
+              console.log(page);
+            },
+            pageSize: 4,
+          }}
+          dataSource={bitcoinsNews}
+          renderItem={item => (
+            <List.Item
+              key={item.title}
+              extra={
+                <img
+                  width={50}
+                  alt="logo"
+                  src={item.metaData.photo}
+                />
+              }
+            >
+              <List.Item.Meta
+                title={<a href={item.link}>{item.headline}</a>}
+                description={item.summary}
+              />
+            </List.Item>
+          )}
+        />:<LoadingOutlined style={{ fontSize: 24 }} spin />
+          }
+        
+
+        </Col>
+        <Col span={14}>
       <h1>BTC/USD</h1>
       {bitcoins?
       <VictoryChart
       theme={VictoryTheme.material}
-    >
+      >
       <VictoryAxis dependentAxis/>
       <VictoryLine
         style={{
@@ -49,11 +98,14 @@ function BTC() {
     </VictoryChart>: <LoadingOutlined style={{ fontSize: 24 }} spin />
       
     }
-      
-      
+    </Col>
+
+  </Row>
 
     </div>
+    
   );
+
 }
 
 export default BTC;
