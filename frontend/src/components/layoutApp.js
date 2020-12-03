@@ -20,7 +20,7 @@ function LayoutApp({children}) {
           <Link to='/eth'>ETH</Link>
           </Menu.Item>
         <Menu.Item key="3">
-          <Link to='/xrp'>XRP</Link>
+          <Link to='/xrp'>LTC</Link>
           </Menu.Item>
       </Menu>
       </Col>
@@ -45,7 +45,7 @@ function LayoutApp({children}) {
     <Content style={{ padding: '0 50px' }}>
       <div className="site-layout-content">{children}</div>
     </Content>
-    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+    <Footer style={{ textAlign: 'center' }}>Created by Luis Gabriel Valenzuela and Rubén Rodríguez</Footer>
   </Layout>,
         </div>
     )
