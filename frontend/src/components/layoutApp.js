@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Layout, Menu, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
 import { useContextData } from '../hooks/context'
@@ -56,7 +56,7 @@ function LayoutApp({ children }) {
             </Col>
           </Row>
         </Header>
-        <Content style={{ padding: '0 50px' }}>
+        <Content style={{ padding: '0 10px' }}>
           <div className="site-layout-content">{children}</div>
         </Content>
         {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}
