@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Form, Button, Input, Upload } from 'antd'
+import { Form, Button, Input, Upload, Select} from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from 'axios'
-import {Postcreate} from '../services/post'
+import { Postcreate } from '../services/post'
 // add cloudinary account here 
 const cloudinaryAPI = ''
 
@@ -14,8 +14,8 @@ const CreatePostForm = (addPost) => {
 
 
     async function handleSubmit(values) {
-        const post={...values,image:img};
-        const {data:newPost}= await Postcreate(post);
+        const post = { ...values};
+        const { data: newPost } = await Postcreate(post);
         addPost(newPost);
         form.resetFields()
         setImg(null)
@@ -48,13 +48,14 @@ const CreatePostForm = (addPost) => {
             <Form.Item name='comment' label='Comment:' />
             <Input />
             <Form.Item />
+            {/* <Form.Item name='image' label='Image:' />
             <Form.Item name='image' label='Image:' />
             <Upload name="image"
                 showUploadList={false}
                 beforeUpload={handleUploadFile}>
                 {img ? <img src={img} style={{ width: '100%' }} /> : uploadButton}
             </Upload>
-            <Form.Item />
+            <Form.Item /> */}
             <Button type='primary' block size='middle' htmlType='submit'>create post</Button>
 
 

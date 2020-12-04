@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const prefix = '/post'
+const prefix = '/posts'
 
 const baseURL = process.env.NODE_ENV === 'development' ?
   `http://localhost:3000${prefix}` :
@@ -13,13 +13,13 @@ const postService = axios.create({
 // export service-functions to target page
 
 // get all
-export const getPost = () => postService.get()
+export const getUserPost = () => postService.get()
 
 // details
 export const getPostDetails = id => postService.get(`/${id}`)
 
 // create
-export const Postcreate = post => postService.post('', post)
+export const Postcreate = post => postService.post('/create', post)
 
 // edit-update
 export const postUpdate = (id, post) => postService.put(`/${id}`, post)

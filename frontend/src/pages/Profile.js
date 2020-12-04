@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useContextData} from '../hooks/context';
-import {getPost} from '../services/post';
+import {getUserPost} from '../services/post';
 import { Layout, Menu, Row, Col, Card, Avatar } from 'antd'
 import PostCard from '../components/PostCard'
 import CreatePostForm from '../components/createPostForm'
@@ -15,11 +15,11 @@ const Profile=()=> {
 // const [posts,setPost]= useState([])
 
 // useEffect(() => {
-//   async function getPosts(){
-//     const{data}=await getPost()
+//   async function getUserPosts(){
+//     const{data}=await getUserPost()
 //     setPost(data)
 //   }
-//   getPosts()
+//   getUserPosts()
   
 // }, [])
 

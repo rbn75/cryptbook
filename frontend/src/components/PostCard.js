@@ -21,4 +21,4 @@ function PostCard({ title, comment, image, _id,}) {
   )
 }
 
-export default PostCard
+export default PostCard 
