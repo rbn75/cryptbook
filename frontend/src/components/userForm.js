@@ -1,12 +1,12 @@
+
 import React, { useState } from 'react'
 import { Form, Button, Input, Upload } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from 'axios'
-import {Postcreate} from '../services/post'
 // add cloudinary account here 
 const cloudinaryAPI = ''
 
-const CreatePostForm = (addPost) => {
+const UserUpdateProf = () => {
     const [form] = Form.useForm()
     const [img, setImg] = useState(null)
     const [loading, setLoading] = useState(null)
@@ -14,12 +14,7 @@ const CreatePostForm = (addPost) => {
 
 
     async function handleSubmit(values) {
-        const post={...values,image:img};
-        const {data:newPost}= await Postcreate(post);
-        addPost(newPost);
-        form.resetFields()
-        setImg(null)
-
+        console.log(values)
     }
 
     async function handleUploadFile(file) {
@@ -42,11 +37,16 @@ const CreatePostForm = (addPost) => {
     return (
 
         <Form form={form} layout='vertical' onFinish={handleSubmit}>
-            <Form.Item name='title' label='Title:' />
+
+            <Form.Item name='name' label='Name:' />
             <Input />
             <Form.Item />
-            <Form.Item name='comment' label='Comment:' />
+            <Form.Item name='lastname' label='Last:' />
             <Input />
+            <Form.Item />
+            <Form.Item name='email' label='Email:' />
+            <Input />
+            <Form.Item />
             <Form.Item />
             <Form.Item name='image' label='Image:' />
             <Upload name="image"
@@ -62,5 +62,7 @@ const CreatePostForm = (addPost) => {
     )
 }
 
-export default CreatePostForm
+export default UserUpdateProf
+
+
 
