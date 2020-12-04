@@ -1,7 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios'
+import {getReco} from '../services/recomendation'
 import {VictoryLine, VictoryChart, VictoryAxis, VictoryLabel, VictoryVoronoiContainer, VictoryTooltip} from 'victory'
-import { Spin, Row, Col,List, Avatar, Space, Typography  } from 'antd';
+import { Spin, Row, Col,List, Avatar, Space, Typography, Button, Skeleton  } from 'antd';
 import { LoadingOutlined, MessageOutlined, LikeOutlined, StarOutlined  } from '@ant-design/icons';
 import {Helmet} from "react-helmet";
 
@@ -20,6 +21,8 @@ const {Text}=Typography
 function BTC() {
   const [bitcoins, setBitcoin]=useState(null)
   const [bitcoinsNews, setBitcoinNews]=useState(null)
+  const [recoms, setRecoms]=useState([])
+  //const [showModal, setShowModal]=useState(false)
 
 
    useEffect(()=>{
@@ -32,15 +35,31 @@ function BTC() {
      
      async function getNews(){
        const {data}=await axios.get(newsURL)
-       console.log(data)
        setBitcoinNews(data)
        
+     }
+     async function getRecoms(){
+       const {data}=await getReco()
+       setRecoms(data.filter(r=>r.crypto=="BTC"))
      }
      
       
      getBitcoin()
      getNews()
+     getRecoms()
    },[])
+
+   //Will replace the filtered array once frontend is fully working,
+  //  const BTCrecoms={'BTC':[]}
+
+  //  function addRecom(recom){
+  //    setRecoms([...recoms,recom])
+  //    setShowModal(false)
+  //  }
+
+  //  recoms.forEach(recom=>{
+  //    BTCrecoms[recom.crypto]=[...BTCrecoms[recom.crypto],recom]
+  //  })
   
 
   
@@ -93,7 +112,7 @@ function BTC() {
               key={item.title}
               extra={
                 <img
-                  width={50}
+                  width={75}
                   alt="logo"
                   src={item.metaData.photo}
                 />
@@ -103,6 +122,7 @@ function BTC() {
                 title={<a href={item.link} target="_blank">{item.headline}</a>}
                 description={item.summary.length>100?
                    `${item.summary.substring(0,100)}...`:item.summary}
+                   style={{textAlign:"right"}}
               />
               <Text type="secondary" style={{fontSize:10}}><b>Source:</b> {item.provider}</Text>
             </List.Item>
