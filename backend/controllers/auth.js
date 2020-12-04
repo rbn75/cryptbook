@@ -3,9 +3,12 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 // const router = require('../routes/auth')
+const {userRegister}=require('../config/nodemailer')
 
 exports.signup = async (req, res) => {
   const newUser= await User.register(req.body, req.body.password)
+  //const password=null
+  await userRegister(req.body.name, req.body.email)
   res.status(201).json(newUser)
 }
 
@@ -44,6 +47,28 @@ exports.currentUser = (req, res) => {
 exports.logout = (req, res) => {
   req.logout()
   res.status(200).json({ message: 'logged out' })
+}
+
+exports.updateUser= async (req,res)=>{
+  const id=req.user._id
+  const {email, 
+    name, 
+    lastname, 
+    //password, need to double check how to update password with the plugin 
+    image}=req.body
+  if(!email /*|| !password*/){
+    return res
+    .status(403)
+    .json({message:"Email field cannot be empty"})
+  }
+  const updateUser= await User.findByIdAndUpdate(id, {
+    email,
+    name,
+    lastname,
+    //password,
+    image
+  }, {new: true})
+  res.status(200).json(updateUser)
 }
 
 exports.googleInit = passport.authenticate('google', {
