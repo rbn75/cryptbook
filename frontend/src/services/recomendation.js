@@ -19,7 +19,7 @@ export const getReco = () => recomnService.get('/allRecomendations')
 export const recoDetails = id => recomnService.get(`/${id}`)
 
 // create
-export const recoCreate = recomendation => recomnService.post('', recomendation)
+export const recoCreate = recomendation => recomnService.post('/create', recomendation)
 
 // edit-update
 export const recoUpdate = (id, recomendation) => recomnService.put(`/${id}`, recomendation)
