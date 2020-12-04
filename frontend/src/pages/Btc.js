@@ -5,11 +5,12 @@ import {VictoryLine, VictoryChart, VictoryAxis, VictoryLabel, VictoryVoronoiCont
 import { Spin, Row, Col,List, Avatar, Space, Typography, Button, Skeleton, Modal  } from 'antd';
 import { LoadingOutlined, MessageOutlined, LikeOutlined, StarOutlined  } from '@ant-design/icons';
 import {Helmet} from "react-helmet";
+import CreateRecomForm from '../components/createRecomForm'
 
 
 let priceURL= 'http://rest-sandbox.coinapi.io/v1/ohlcv/GEMINI_SPOT_BTC_USD/latest?period_id=1HRS'
 let newsURL='https://feed.cryptoquote.io/api/v1/news/headlines?search=BTC&key=778fae00-359b-11eb-a7c8-83b5e7f8291c'
-
+const curr="BTC"
 
 const {Text}=Typography
 
@@ -35,7 +36,7 @@ function BTC() {
      }
      async function getRecoms(){
        const {data}=await getReco()
-       setRecoms(data.filter(r=>r.crypto=="BTC"))
+       setRecoms(data.filter(r=>r.crypto=="BTC").sort((a,b)=>(a.createdAt<b.createdAt)?1:-1))
      }
      
       
@@ -95,7 +96,7 @@ function BTC() {
         onOk={() => setShowModal(false)}
         onCancel={() => setShowModal(false)}
       >
-        {/* <CreateJobForm addJob={addJob} /> */}
+        <CreateRecomForm addRecom={addRecom} curr={curr} />
       </Modal>
     {recoms?   <List
       className="demo-loadmore-list"
