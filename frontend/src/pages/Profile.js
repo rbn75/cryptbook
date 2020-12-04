@@ -3,6 +3,8 @@ import {useContextData} from '../hooks/context';
 import {getPost} from '../services/post';
 import { Layout, Menu, Row, Col, Card, Avatar } from 'antd'
 import PostCard from '../components/PostCard'
+import CreatePostForm from '../components/createPostForm'
+import UserUpdateProf from '../components/userForm'
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -39,10 +41,18 @@ const Profile=()=> {
             Incidunt rerum optio numquam distinctio,dsd
 
             </Card>
+            <Card title="Update your data">
+            <UserUpdateProf/>
+
+            </Card>
             
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} >
-            <Card title="Post">
+            <Card title="Make a post">
+            <CreatePostForm/>
+            <br/>
+            <hr/>
+            <PostCard/>
             
 
             </Card>
