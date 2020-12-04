@@ -6,6 +6,7 @@ import { Spin, Row, Col,List, Avatar, Space, Typography, Button, Skeleton  } fro
 import { LoadingOutlined, MessageOutlined, LikeOutlined, StarOutlined  } from '@ant-design/icons';
 import {Helmet} from "react-helmet";
 
+
 let priceURL= 'http://rest-sandbox.coinapi.io/v1/ohlcv/GEMINI_SPOT_BTC_USD/latest?period_id=1HRS'
 let newsURL='https://feed.cryptoquote.io/api/v1/news/headlines?search=BTC&key=778fae00-359b-11eb-a7c8-83b5e7f8291c'
 
@@ -65,10 +66,10 @@ function BTC() {
   
   return (
     <div>
-      <div></div>
 
       <Row gutter={30}>
-        <Col span={14}>
+        <Col span={14} style={{padding:"0 20px"}}>
+          <div>
       {bitcoins?
       <VictoryChart
       height={200}
@@ -93,8 +94,26 @@ function BTC() {
     </VictoryChart>: <LoadingOutlined style={{ fontSize: 24 }} spin />
       
     }
+    <List
+        className="demo-loadmore-list"
+        itemLayout="horizontal"
+        dataSource={recoms}
+        renderItem={item => (
+          <List.Item>
+              <List.Item.Meta
+                avatar={
+                  <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                }
+                title={<a href="https://ant.design">{item.title}</a>}
+                description={`Estimate: ${item.estimate} Actual: ${item.actual} Surprise: ${item.surprise}`}
+              />
+              <p>Recomendation: {item.recomendation}</p>
+          </List.Item>
+        )}
+      />
+      </div>
     </Col>
-    <Col span={10}>
+    <Col span={10} style={{padding:"30px 10px 30px 0"}}>
           {bitcoinsNews?
           <List
           itemLayout="vertical"
