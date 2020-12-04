@@ -93,24 +93,24 @@ function BTC() {
       
     </VictoryChart>: <LoadingOutlined style={{ fontSize: 24 }} spin />
       
-    }
-    <List
-        className="demo-loadmore-list"
-        itemLayout="horizontal"
-        dataSource={recoms}
-        renderItem={item => (
-          <List.Item>
-              <List.Item.Meta
-                avatar={
-                  <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                }
-                title={<a href="https://ant.design">{item.title}</a>}
-                description={`Estimate: ${item.estimate} Actual: ${item.actual} Surprise: ${item.surprise}`}
-              />
-              <p>Recomendation: {item.recomendation}</p>
-          </List.Item>
-        )}
-      />
+    }{recoms?   <List
+      className="demo-loadmore-list"
+      itemLayout="horizontal"
+      dataSource={recoms}
+      renderItem={item => (
+        <List.Item>
+            <List.Item.Meta
+              avatar={
+                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+              }
+              title={item.title}
+              description={`Estimate: ${item.estimate} | Actual: ${item.actual} | Surprise: ${item.surprise}`}
+            />
+            <p>Recomendation: {item.recomendation}</p>
+        </List.Item>
+      )}
+    />:<LoadingOutlined style={{ fontSize: 24 }} spin />}
+ 
       </div>
     </Col>
     <Col span={10} style={{padding:"30px 10px 30px 0"}}>
