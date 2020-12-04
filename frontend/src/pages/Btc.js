@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios'
 import {getReco} from '../services/recomendation'
 import {VictoryLine, VictoryChart, VictoryAxis, VictoryLabel, VictoryVoronoiContainer, VictoryTooltip} from 'victory'
-import { Spin, Row, Col,List, Avatar, Space, Typography, Button, Skeleton  } from 'antd';
+import { Spin, Row, Col,List, Avatar, Space, Typography, Button, Skeleton, Modal  } from 'antd';
 import { LoadingOutlined, MessageOutlined, LikeOutlined, StarOutlined  } from '@ant-design/icons';
 import {Helmet} from "react-helmet";
 
@@ -10,12 +10,6 @@ import {Helmet} from "react-helmet";
 let priceURL= 'http://rest-sandbox.coinapi.io/v1/ohlcv/GEMINI_SPOT_BTC_USD/latest?period_id=1HRS'
 let newsURL='https://feed.cryptoquote.io/api/v1/news/headlines?search=BTC&key=778fae00-359b-11eb-a7c8-83b5e7f8291c'
 
-const IconText = ({ icon, text }) => (
-  <Space>
-    {React.createElement(icon)}
-    {text}
-  </Space>
-);
 
 const {Text}=Typography
 
@@ -23,7 +17,7 @@ function BTC() {
   const [bitcoins, setBitcoin]=useState(null)
   const [bitcoinsNews, setBitcoinNews]=useState(null)
   const [recoms, setRecoms]=useState([])
-  //const [showModal, setShowModal]=useState(false)
+  const [showModal, setShowModal]=useState(false)
 
 
    useEffect(()=>{
@@ -51,16 +45,16 @@ function BTC() {
    },[])
 
    //Will replace the filtered array once frontend is fully working,
-  //  const BTCrecoms={'BTC':[]}
+    const BTCrecoms={'BTC':[]}
 
-  //  function addRecom(recom){
-  //    setRecoms([...recoms,recom])
-  //    setShowModal(false)
-  //  }
+    function addRecom(recom){
+      setRecoms([...recoms,recom])
+      setShowModal(false)
+    }
 
-  //  recoms.forEach(recom=>{
-  //    BTCrecoms[recom.crypto]=[...BTCrecoms[recom.crypto],recom]
-  //  })
+    recoms.forEach(recom=>{
+      BTCrecoms[recom.crypto]=[...BTCrecoms[recom.crypto],recom]
+    })
   
 
   
@@ -93,7 +87,17 @@ function BTC() {
       
     </VictoryChart>: <LoadingOutlined style={{ fontSize: 24 }} spin />
       
-    }{recoms?   <List
+    }
+    <Button type="primary" block size="middle" onClick={() => setShowModal(true)}>Click here to make a recomendation!</Button>
+    <Modal
+        visible={showModal}
+        title="Create a new job"
+        onOk={() => setShowModal(false)}
+        onCancel={() => setShowModal(false)}
+      >
+        {/* <CreateJobForm addJob={addJob} /> */}
+      </Modal>
+    {recoms?   <List
       className="demo-loadmore-list"
       itemLayout="horizontal"
       dataSource={recoms}
