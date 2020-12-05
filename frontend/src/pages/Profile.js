@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {useContextData} from '../hooks/context';
-import {getUserPost} from '../services/post';
+import React, { useState, useEffect } from 'react';
+import { useContextData } from '../hooks/context';
+import { getUserPost } from '../services/post';
 import { Layout, Menu, Row, Col, Card, Avatar } from 'antd'
 import PostCard from '../components/PostCard'
 import CreatePostForm from '../components/createPostForm'
@@ -8,26 +8,32 @@ import UserUpdateProf from '../components/userForm'
 
 const { Header, Footer, Sider, Content } = Layout;
 
-const Profile=()=> {
+const Profile = () => {
   // crud
-// const {user} =useContextData()
+  const { user } = useContextData()
 
-// const [posts,setPost]= useState([])
+  const [posts, setPost] = useState([])
 
-// useEffect(() => {
-//   async function getUserPosts(){
-//     const{data}=await getUserPost()
-//     setPost(data)
-//   }
-//   getUserPosts()
-  
-// }, [])
+  useEffect(() => {
+    async function getPosts() {
+      const { data } = await getUserPost()
+      setPost(data)
+    }
+    getPosts()
 
-// const postFiltered ={}
+  }, [])
 
-// posts.forEach(post =>{
-//   postFiltered[post.status]=[...postFiltered[post.status],post]
-// })
+
+
+  const postsFiltered = {
+    'POSTES': [],
+  }
+
+
+
+  posts.forEach(post => {
+    postsFiltered[post.status] = [...postsFiltered[post.status], post]
+  })
   return (
     <div>
       <h1>profile test</h1>
@@ -35,33 +41,36 @@ const Profile=()=> {
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={24} md={12} lg={12} >
             <Card title="User profile">
-            {/* {postFiltered.Post.map(post => <PostCard {...post}/>)} */}
-            Lorem ipsum, dolor sit amet consectepe,a officii
-            m excepturi illum natus voluptas voluptatibus. 
+              {/* {postFiltered.Post.map(post => <PostCard {...post}/>)} */}
+            m excepturi illum natus voluptas voluptatibus.
             Incidunt rerum optio numquam distinctio,dsd
 
             </Card>
             <Card title="Update your data">
-            <UserUpdateProf/>
+
 
             </Card>
-            
+
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} >
             <Card title="Make a post">
-            <CreatePostForm/>
-            <br/>
-            <hr/>
-            <PostCard/>
-            
-
+              <CreatePostForm />
+              <br />
+              <hr />
             </Card>
-            
+
           </Col>
+
+          <Col xs={24} sm={24} md={8}>
+            <Card title="Interview">
+              {postsFiltered.POSTES.map(post => <PostCard key={post._id} {...post} />)}
+            </Card>
+          </Col>
+
 
         </Row>
 
-      
+
 
 
 

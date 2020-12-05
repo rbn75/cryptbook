@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, Button, Input, Upload, Select} from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from 'axios'
-import { Postcreate } from '../services/post'
+import { postcreate } from '../services/post'
 // add cloudinary account here 
 const cloudinaryAPI = ''
 
@@ -14,9 +14,12 @@ const CreatePostForm = (addPost) => {
 
 
     async function handleSubmit(values) {
-        const post = { ...values};
-        const { data: newPost } = await Postcreate(post);
-        addPost(newPost);
+        
+        const data =values;
+        console.log(form.values)
+        const newPost = await postcreate(data).catch(e=> console.log(e.response));
+        console.log(newPost)
+        // addPost(newPost);
         form.resetFields()
         setImg(null)
 
@@ -41,13 +44,13 @@ const CreatePostForm = (addPost) => {
 
     return (
 
-        <Form form={form} layout='vertical' onFinish={handleSubmit}>
-            <Form.Item name='title' label='Title:' />
+        <Form form={form} layout="vertical" onFinish={handleSubmit}>
+            <Form.Item name="title" label='Title:'>
             <Input />
-            <Form.Item />
-            <Form.Item name='comment' label='Comment:' />
+            </Form.Item>
+            <Form.Item name="comment" label="Comment:">
             <Input />
-            <Form.Item />
+            </Form.Item>
             {/* <Form.Item name='image' label='Image:' />
             <Form.Item name='image' label='Image:' />
             <Upload name="image"
