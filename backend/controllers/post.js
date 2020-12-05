@@ -28,6 +28,7 @@ exports.getPostDetail = async (req, res) => {
 exports.createPost = async (req, res) => {
     const { title, comment, image } = req.body
     const userId=req.user._id
+    console.log(req.body)
 
     if(!title || !comment){
         return res

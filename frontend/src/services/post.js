@@ -19,7 +19,7 @@ export const getUserPost = () => postService.get()
 export const getPostDetails = id => postService.get(`/${id}`)
 
 // create
-export const Postcreate = post => postService.post('/create', post)
+export const postcreate = data => postService.post('/create', data)
 
 // edit-update
 export const postUpdate = (id, post) => postService.put(`/${id}`, post)
