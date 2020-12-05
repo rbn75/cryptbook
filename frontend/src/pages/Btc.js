@@ -13,7 +13,6 @@ let newsURL='https://feed.cryptoquote.io/api/v1/news/headlines?search=BTC&key=77
 const curr="BTC"
 
 const {Text}=Typography
-
 function BTC() {
   const [bitcoins, setBitcoin]=useState(null)
   const [bitcoinsNews, setBitcoinNews]=useState(null)
@@ -25,7 +24,9 @@ function BTC() {
     
 
      async function getBitcoin(){
-       const {data}=await axios.get(priceURL, {headers:{'X-CoinAPI-Key': "977F32DF-8B2A-4AB3-B2EC-6997426FE65D" }})
+       const {data}=await axios.
+       get(priceURL, 
+        {headers:{'X-CoinAPI-Key': "977F32DF-8B2A-4AB3-B2EC-6997426FE65D" }})
        setBitcoin(data)
      }
      
@@ -36,7 +37,10 @@ function BTC() {
      }
      async function getRecoms(){
        const {data}=await getReco()
-       setRecoms(data.filter(r=>r.crypto=="BTC").sort((a,b)=>(a.createdAt<b.createdAt)?1:-1))
+       setRecoms(data.
+        filter(r=>r.crypto=="BTC")
+        .sort((a,b)=>(a.createdAt<b.createdAt)?1:-1)
+        .slice(0,3))
      }
      
       
@@ -44,20 +48,39 @@ function BTC() {
      getNews()
      getRecoms()
    },[])
+   
+   
+   useEffect(()=>{
+     console.log("aqui cambio algo")
+   },[onLoadMore])
+
 
    //Will replace the filtered array once frontend is fully working,
     const BTCrecoms={'BTC':[]}
 
     function addRecom(recom){
-      setRecoms([...recoms,recom])
+      setRecoms([recom,...recoms])
       setShowModal(false)
     }
 
     recoms.forEach(recom=>{
       BTCrecoms[recom.crypto]=[...BTCrecoms[recom.crypto],recom]
     })
-  
+    
+    function onLoadMore(){
+      setRecoms([...recoms,])
+    }
 
+    const loadMore=( <div
+      style={{
+        textAlign: 'center',
+        marginTop: 12,
+        height: 32,
+        lineHeight: '32px',
+      }}
+    >
+      <Button className onClick={onLoadMore}>loading more</Button>
+    </div>)
   
   return (
     <div>
@@ -101,6 +124,7 @@ function BTC() {
     {recoms?   <List
       className="demo-loadmore-list"
       itemLayout="horizontal"
+      loadMore={loadMore}
       dataSource={recoms}
       renderItem={item => (
         <List.Item>
@@ -113,8 +137,11 @@ function BTC() {
             />
             <p>Recomendation: {item.recomendation}</p>
         </List.Item>
-      )}
-    />:<LoadingOutlined style={{ fontSize: 24 }} spin />}
+      )
+    } 
+    />
+    
+    :<LoadingOutlined style={{ fontSize: 24 }} spin />}
  
       </div>
     </Col>
