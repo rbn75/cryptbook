@@ -62,7 +62,6 @@ exports.updateRecomendations = async (req, res) => {
         title,
         estimate,
         actual,
-        crypto,
         surprise,
         recomendation } = req.body
 
@@ -70,7 +69,6 @@ exports.updateRecomendations = async (req, res) => {
         title,
         estimate,
         actual,
-        crypto,
         surprise,
         recomendation
     }, { new: true })
