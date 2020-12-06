@@ -139,7 +139,7 @@ function BTC() {
                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
               }
               title={item.title}
-              description={`Estimate: ${item.estimate} | Actual: ${item.actual} | Surprise: ${item.surprise}`}
+              description={`Created: ${item.createdAt.slice(5,16)} | Estimate: ${item.estimate} | Actual: ${item.actual} | Surprise: ${item.surprise}`}
             />
             <p>Recomendation: {item.recomendation}</p>
         </List.Item>
