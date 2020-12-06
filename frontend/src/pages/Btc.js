@@ -44,6 +44,7 @@ function BTC() {
      }
      async function getRecoms(){
        const {data}=await getReco()
+       console.log(data)
        setRecoms(data.
         filter(r=>r.crypto=="BTC")
         .sort((a,b)=>(a.createdAt<b.createdAt)?1:-1)
@@ -151,9 +152,10 @@ function BTC() {
         visible={showEditModal}
         title="Edit"
         footer={null}
+        onOk={() => setShowEditModal(false)}
         onCancel={() => setShowEditModal(false)}
       >
-        <EditRecomForm item={itemEdit}/>
+        <EditRecomForm item={itemEdit} curr={curr}/>
       </Modal> 
       </div>
     </Col>

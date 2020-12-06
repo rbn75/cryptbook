@@ -4,19 +4,18 @@ import {LoadingOutlined, PlusOutlined} from '@ant-design/icons'
 import {recoUpdate} from '../services/recomendation'
 
 
-function EditRecomForm({item, updateRecom}) {
+function EditRecomForm({item, curr}) {
     const [form]=Form.useForm()
 
     async function handleSubmit(values){
         console.log(values)
 
-        const recom={
-            ...values
+        const recomUpdated={
+            ...values,
+            crypto:curr
         }
 
-        const {data:newRecom}= await recoUpdate(recom)
-        updateRecom(newRecom)
-        form.resetFields()
+        const {data:newRecom}= await recoUpdate(item._id, recomUpdated)
     }
 
     return (
