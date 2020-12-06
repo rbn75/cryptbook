@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { Layout, Menu, Row, Col } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useContextData } from '../hooks/context'
 import { logoutFn } from '../services/auth'
 
@@ -8,9 +8,15 @@ import { logoutFn } from '../services/auth'
 const { Header, Content, Footer } = Layout
 function LayoutApp({ children }) {
   const { user, logout } = useContextData()
+
+  let history=useHistory()
+
   async function handleLogout() {
+    history.push('/')
     await logoutFn()
+    
     logout()
+    
   }
 
 
@@ -52,9 +58,6 @@ function LayoutApp({ children }) {
                     <Menu.Item key="3">
                       <Link to='/profile'>Profile</Link>
                     </Menu.Item>
-                    {/* <Menu.Item key="4">
-                      <Link to='/logout'>Logout</Link>
-                    </Menu.Item> */}
                     <Menu.Item key="5" onClick={handleLogout}>Logout </Menu.Item>
                   </> : null}
 

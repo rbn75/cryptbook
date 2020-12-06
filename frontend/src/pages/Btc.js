@@ -5,6 +5,9 @@ import {VictoryLine, VictoryChart, VictoryAxis, VictoryLabel, VictoryVoronoiCont
 import { Spin, Row, Col,List, Avatar, Space, Typography, Button, Skeleton, Modal  } from 'antd';
 import { LoadingOutlined, MessageOutlined, LikeOutlined, StarOutlined  } from '@ant-design/icons';
 import {Helmet} from "react-helmet";
+import { useContextData } from '../hooks/context';
+import EditRecomForm from '../components/EditRecomForm'
+
 import CreateRecomForm from '../components/createRecomForm'
 
 
@@ -18,6 +21,10 @@ function BTC() {
   const [bitcoinsNews, setBitcoinNews]=useState(null)
   const [recoms, setRecoms]=useState([])
   const [showModal, setShowModal]=useState(false)
+  const [showEditModal, setShowEditModal]=useState(false)
+  const [itemEdit, setItemEdit]=useState(false)
+
+  const { user } = useContextData()
 
 
    useEffect(()=>{
@@ -50,9 +57,7 @@ function BTC() {
    },[])
    
    
-   useEffect(()=>{
-     console.log("aqui cambio algo")
-   },[onLoadMore])
+
 
 
    //Will replace the filtered array once frontend is fully working,
@@ -115,11 +120,11 @@ function BTC() {
     <Button type="primary" block size="middle" onClick={() => setShowModal(true)}>Click here to make a recomendation!</Button>
     <Modal
         visible={showModal}
-        title="Create a new job"
-        onOk={() => setShowModal(false)}
+        title="Make a recomendation!"        
+        footer={null}
         onCancel={() => setShowModal(false)}
       >
-        <CreateRecomForm addRecom={addRecom} curr={curr} />
+        <CreateRecomForm addRecom={addRecom} curr={curr}/>
       </Modal>
     {recoms?   <List
       className="demo-loadmore-list"
@@ -127,7 +132,7 @@ function BTC() {
       loadMore={loadMore}
       dataSource={recoms}
       renderItem={item => (
-        <List.Item>
+      <List.Item actions={user? item.userId==user._id?[<a key="list-loadmore-edit" onClick={() => [setShowEditModal(true), console.log(item), setItemEdit(item)]}>edit</a>]:["Author's profile"]:""}>
             <List.Item.Meta
               avatar={
                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
@@ -142,7 +147,14 @@ function BTC() {
     />
     
     :<LoadingOutlined style={{ fontSize: 24 }} spin />}
- 
+      <Modal
+        visible={showEditModal}
+        title="Edit"
+        footer={null}
+        onCancel={() => setShowEditModal(false)}
+      >
+        <EditRecomForm item={itemEdit}/>
+      </Modal> 
       </div>
     </Col>
     <Col span={10} style={{padding:"30px 10px 30px 0"}}>
@@ -152,7 +164,6 @@ function BTC() {
           size="small"
           pagination={{
             onChange: page => {
-              console.log(page);
             },
             pageSize: 3,
             showLessItems:true
