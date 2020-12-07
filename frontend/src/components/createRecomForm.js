@@ -27,20 +27,20 @@ const CreateRecomForm=({addRecom,curr})=> {
         </Form.Item>
         <Form.Item placeholder="Price estimate" name="estimate" label="Price estimate:">
           <InputNumber
-          formatter={value=>`$ ${value}.00 USD`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-          parser={value=>value.replace(".00 USD", "" )
+          formatter={value=>`$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          parser={value=>value
           .replace(/\$\s?|(,*)/g, '')}/>
         </Form.Item>
         <Form.Item placeholder="Current price" name="actual" label="Actual price:">
           <InputNumber 
-          formatter={value=>`$ ${value}.00 USD`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-          parser={value=>value.replace(".00 USD", "" )
+          formatter={value=>`$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          parser={value=>value
           .replace(/\$\s?|(,*)/g, '')}/>
         </Form.Item>
         <Form.Item placeholder="Surprise" name="surprise" label="Surprise price:">
           <InputNumber 
-          formatter={value=>`$ ${value}.00 USD`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-          parser={value=>value.replace(".00 USD", "" )
+          formatter={value=>`$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          parser={value=>value
           .replace(/\$\s?|(,*)/g, '')}/>
         </Form.Item>
         <Form.Item name="crypto" label="Crypto:">

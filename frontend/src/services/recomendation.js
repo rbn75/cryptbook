@@ -25,4 +25,4 @@ export const recoCreate = recomendation => recomnService.post('/create', recomen
 export const recoUpdate = (id, recomendation) => recomnService.put(`/edit/${id}`, recomendation)
 
 //delete
-export const recoDelete = id => recomnService.delete(`/${id}`)
+export const recoDelete = id => recomnService.get(`/delete/${id}`)
