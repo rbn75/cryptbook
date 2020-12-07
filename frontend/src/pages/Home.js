@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios'
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin, Row, Col,List, Avatar, Typography, Button, Modal, Card  } from 'antd';
+import { Spin, Row, Col,List, Avatar, Typography, Button, Modal, Card, PageHeader, Statistic, Divider  } from 'antd';
 import { useContextData } from '../hooks/context';
 
 //URLs for external APIs
 let newsURL='https://feed.cryptoquote.io/api/v1/news/headlines?key=778fae00-359b-11eb-a7c8-83b5e7f8291c'
-
+let priceURL="https://rest.coinapi.io/v1/trades"
+let statsURL="https://feed.cryptoquote.io/api/v1/stats"
 const {Text, Title}=Typography
 const { Meta } = Card;
 
@@ -14,6 +15,10 @@ function Home() {
 
   //initial useState hooks
   const [news, setNews]=useState(null)
+  const [bitcoinP, setBitcoinP]=useState(null)
+  const [litecoinP, setLitecoinP]=useState(null)
+  const [ethereumP, setEthereumP]=useState(null)
+
 
   //User context data
   const { user } = useContextData()
@@ -24,15 +29,92 @@ function Home() {
     async function getNews (){
       const {data}=await axios.get(newsURL)
       setNews(data)
-      console.log(data)
+    }
+
+    async function getBitcoinP(){
+      const {data}=await axios.get(statsURL+"/btcusd.gemini?key=778fae00-359b-11eb-a7c8-83b5e7f8291c")
+      setBitcoinP(data[0])
+    }
+
+    async function getLitecoinP(){
+      const {data}=await axios.get(priceURL+"/GEMINI_SPOT_LTC_USD/latest",
+      {headers:{'X-CoinAPI-Key': "977F32DF-8B2A-4AB3-B2EC-6997426FE65D" }})
+      setLitecoinP(data[0])
+    }
+
+    async function getEthereumP(){
+      const {data}=await axios.get(priceURL+"/GEMINI_SPOT_ETH_USD/latest",
+      {headers:{'X-CoinAPI-Key': "977F32DF-8B2A-4AB3-B2EC-6997426FE65D" }})
+      setEthereumP(data[0])
     }
 
     getNews()
+    getBitcoinP()
+    getLitecoinP()
+    getEthereumP()
   },[])
 
 
   return (
     <div>
+          <PageHeader
+      ghost={false}
+    >
+       <Row>
+         <Statistic
+          title="BTC"
+          prefix="$"
+          suffix="USD"
+          value={bitcoinP? bitcoinP.last:"-"}
+          style={{
+            margin: '0 32px',
+          }}
+        />
+        <Statistic
+          title="LTC"
+          prefix="$"
+          suffix="USD"
+          value={litecoinP? litecoinP.price:"-"}
+          style={{
+            margin: '0 32px',
+          }}
+        />
+        <Statistic
+          title="ETH"
+          prefix="$"
+          suffix="USD"
+          value={ethereumP? ethereumP.price:"-"}
+          style={{
+            margin: '0 32px',
+          }}
+        />
+        <Divider type="vertical" />
+                 <Statistic
+          title="BTC"
+          prefix="%"
+          value={568.08}
+          style={{
+            margin: '0 32px',
+          }}
+        />
+        <Statistic
+          title="LTC"
+          prefix="%"
+          value={568.08}
+          style={{
+            margin: '0 32px',
+          }}
+        />
+        <Statistic
+          title="ETH"
+          prefix="%"
+          value={568.08}
+          style={{
+            margin: '0 32px',
+          }}
+        />
+      </Row>
+    </PageHeader>
       <Row>
       {news? <List
       grid={{column: 2 }}

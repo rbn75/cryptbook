@@ -1,13 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios'
 import {getReco} from '../services/recomendation'
-import {VictoryLine, VictoryChart, VictoryAxis, VictoryLabel, VictoryVoronoiContainer, VictoryTooltip} from 'victory'
+import {VictoryLine,
+  VictoryChart,
+  VictoryAxis,
+  VictoryLabel,
+  VictoryVoronoiContainer,
+  VictoryTooltip} from 'victory'
 import { Spin, Row, Col,List, Avatar, Typography, Button, Modal  } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useContextData } from '../hooks/context';
 import EditRecomForm from '../components/EditRecomForm'
 
 import CreateRecomForm from '../components/createRecomForm'
+import { Link } from 'react-router-dom';
 
 //URLs for APIs
 let priceURL= 'http://rest-sandbox.coinapi.io/v1/ohlcv/GEMINI_SPOT_BTC_USD/latest?period_id=1HRS'
@@ -38,7 +44,8 @@ function BTC() {
        const {data}=await axios.
        get(priceURL, 
         {headers:{'X-CoinAPI-Key': "977F32DF-8B2A-4AB3-B2EC-6997426FE65D" }})
-       setBitcoin(data)
+        
+       setBitcoin(data.reverse())
      }
      
      async function getNews(){
@@ -130,7 +137,11 @@ function BTC() {
     }
 
     {/*-----Add a new recomendation button and modal for creating a new one-----*/}
-    <Button type="primary" block size="middle" onClick={() => setShowModal(true)}>Click here to make a recomendation!</Button>
+    <Button 
+    type="primary" 
+    block size="middle" 
+    onClick={() => setShowModal(true)}>Click here to make a recomendation!
+    </Button>
     <Modal
         visible={showModal}
         title="Make a recomendation!"        
@@ -141,13 +152,24 @@ function BTC() {
       </Modal>
 
       {/*----List of most recent recomendations from newest to oldest----*/}
-    {recoms?   <List
+    {user? recoms?   <List
       className="demo-loadmore-list"
       itemLayout="horizontal"
       loadMore={loadMore}
       dataSource={recoms}
       renderItem={item => (
-      <List.Item actions={user? item.userId==user._id?[<a key="list-loadmore-edit" onClick={() => [setShowEditModal(true), console.log(item), setItemEdit(item)]}>edit</a>]:["Author's profile"]:""}>
+      <List.Item 
+      actions={user? 
+        item.userId==user._id?
+          [<a key="list-loadmore-edit" 
+            onClick={() => [
+              setShowEditModal(true), 
+              setItemEdit(item)]
+              }
+            >edit</a>
+          ]:
+          ["Author's profile"]:""}
+      >
             <List.Item.Meta
               avatar={
                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
@@ -160,8 +182,17 @@ function BTC() {
       )
     } 
     />
-    :<LoadingOutlined style={{ fontSize: 24 }} spin />}
+    :<LoadingOutlined style={{ fontSize: 24 }} spin />:<div style={{textAlign:"center"}}>
+    <br/>
+    <Text type="primary">You need to be logged in to see recomendations</Text>
+    <br/>
+    <Text type="secondary">
+      <Link to={'/login'}>Login</Link>, or 
+      <Link to={'/signup'}>Signup</Link> if you don't have an account yet
+    </Text>
 
+    </div>
+  }
     {/*-----Modal for editing recomendation (only available for recom creator)-----*/}
       <Modal
         visible={showEditModal}
