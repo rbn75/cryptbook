@@ -13,7 +13,7 @@ const postService = axios.create({
 // export service-functions to target page
 
 // get all
-export const getUserPost = () => postService.get()
+export const getUserPost = () => postService.get(`/allPosts`)
 
 // details
 export const getPostDetails = id => postService.get(`/${id}`)

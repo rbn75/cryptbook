@@ -26,7 +26,7 @@ exports.getPostDetail = async (req, res) => {
 
 // create
 exports.createPost = async (req, res) => {
-    const { title, comment, image } = req.body
+    const { title, comment, image, status } = req.body
     const userId=req.user._id
     console.log(req.body)
 
@@ -49,7 +49,7 @@ res.status(201).json(newPost)
 // update
 exports.updatePost = async (req, res) => {
     const { postId } = req.params
-    const { title, comment, image } = req.body
+    const { title, comment, image,status } = req.body
     
     if(!title || !comment){
         return res

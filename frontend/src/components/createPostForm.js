@@ -6,7 +6,7 @@ import { postcreate } from '../services/post'
 // add cloudinary account here 
 const cloudinaryAPI = ''
 
-const CreatePostForm = (addPost) => {
+const CreatePostForm = ({addPost}) => {
     const [form] = Form.useForm()
     const [img, setImg] = useState(null)
     const [loading, setLoading] = useState(null)
@@ -14,12 +14,19 @@ const CreatePostForm = (addPost) => {
 
 
     async function handleSubmit(values) {
+        const{ title, comment}=values
+
+        // const post={...values,image:img}
+        // const { data: newPost} =await postcreate(post)
+        // addPost(newPost);
+        // form.resetFields();
+        // setImg(null)
         
         const data =values;
         console.log(form.values)
         const newPost = await postcreate(data).catch(e=> console.log(e.response));
         console.log(newPost)
-        // addPost(newPost);
+        addPost(newPost);
         form.resetFields()
         setImg(null)
 
@@ -59,6 +66,15 @@ const CreatePostForm = (addPost) => {
                 {img ? <img src={img} style={{ width: '100%' }} /> : uploadButton}
             </Upload>
             <Form.Item /> */}
+
+
+            {/* <Select>
+            <Select.Option value="POSTES">POSTES
+
+            </Select.Option>
+
+
+            </Select> */}
             <Button type='primary' block size='middle' htmlType='submit'>create post</Button>
 
 

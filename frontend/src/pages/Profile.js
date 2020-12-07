@@ -1,86 +1,97 @@
-import React, { useState, useEffect } from 'react';
-import { useContextData } from '../hooks/context';
-import { getUserPost } from '../services/post';
-import { Layout, Menu, Row, Col, Card, Avatar } from 'antd'
+
+import React, { useState, useEffect } from 'react'
+import { Row, Col, Typography, Card, Button, Modal } from 'antd'
+import { useContextData } from '../hooks/context'
+import { getUserPost } from '../services/post'
 import PostCard from '../components/PostCard'
 import CreatePostForm from '../components/createPostForm'
-import UserUpdateProf from '../components/userForm'
 
-const { Header, Footer, Sider, Content } = Layout;
+
+const { Title, Text } = Typography
 
 const Profile = () => {
-  // crud
-  const { user } = useContextData()
+  const { user } = useContextData
+  let [posts, setPosts] = useState([])
+  const [showModal, setShowModal] = useState(false)
 
-  const [posts, setPost] = useState([])
+
 
   useEffect(() => {
     async function getPosts() {
-      const { data } = await getUserPost()
-      setPost(data)
-    }
-    getPosts()
+      const {data}= await getUserPost()
+      setPosts(data);
 
+    }
+
+    getPosts()
   }, [])
 
+  // const postsFiltered={
+  //   'POSTES': [],
+  // }
 
+  function addPost(post){
+    setPosts([post,...posts])
+    console.log(posts)
+    setShowModal(false)
 
-  const postsFiltered = {
-    'POSTES': [],
   }
 
+  // posts.forEach (post => {
+  //   postsFiltered[post.status]= [...postsFiltered[post.status], post]
+  // })
 
+  // posts.forEach(post =>{
+  //   posts=[...posts,post]
+  // })
+ 
 
-  posts.forEach(post => {
-    postsFiltered[post.status] = [...postsFiltered[post.status], post]
-  })
   return (
-    <div>
-      <h1>profile test</h1>
-      <Layout>
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={24} md={12} lg={12} >
-            <Card title="User profile">
-              {/* {postFiltered.Post.map(post => <PostCard {...post}/>)} */}
-            m excepturi illum natus voluptas voluptatibus.
-            Incidunt rerum optio numquam distinctio,dsd
+    <Row gutter={[16, 16]}>
+    <Col span="24">
+    <Button type="dash" bloc size="middle" onClick={() => setShowModal(true)}> + </Button>
+    </Col>
+      <Col xs={24} sm={24} md={8}>
+      
+        <Card title="Postes">
+        {/* {posts.map(post => <PostCard {...post} />)} */}
+        {posts ? posts.map(post => <p>{post.title}</p>): "loading"}
+        
+       
 
-            </Card>
-            <Card title="Update your data">
+       
+       
+        
 
+        </Card>
+      </Col>
+      <Col xs={24} sm={24} md={8}>
+        <Card title="test2">
 
-            </Card>
+        </Card>
+      </Col>
+      <Col xs={24} sm={24} md={8}>
+        <Card title="tes3">
+        
 
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={12} >
-            <Card title="Make a post">
-              <CreatePostForm />
-              <br />
-              <hr />
-            </Card>
+        </Card>
+      
+      </Col>
 
-          </Col>
-
-          <Col xs={24} sm={24} md={8}>
-            <Card title="Interview">
-              {postsFiltered.POSTES.map(post => <PostCard key={post._id} {...post} />)}
-            </Card>
-          </Col>
-
-
-        </Row>
-
-
-
-
-
+      <Modal visible={showModal}
+        title="Create a new post"
+        onOk={() => setShowModal(false)}
+        onCancel={() => setShowModal(false)}
+      >
+      <CreatePostForm addPost={addPost}/>
 
 
-      </Layout>
+      </Modal>
 
 
-    </div>
-  );
+    </Row>
+  )
 }
 
-export default Profile;
+export default Profile
+
