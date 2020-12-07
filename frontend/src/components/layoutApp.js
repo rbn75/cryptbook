@@ -3,6 +3,7 @@ import { Layout, Menu, Row, Col } from 'antd'
 import { Link, useHistory } from 'react-router-dom'
 import { useContextData } from '../hooks/context'
 import { logoutFn } from '../services/auth'
+import {HomeOutlined} from '@ant-design/icons'
 
 
 const { Header, Content, Footer } = Layout
@@ -27,27 +28,32 @@ function LayoutApp({ children }) {
           <div className="logo" />
           <Row>
             <Col span={12}>
-              <Menu theme="dark" mode="horizontal" >
-                <Menu.Item key="1">
+              <Menu theme="dark" mode="horizontal" selectable={false}>
+              
+              <Menu.Item key="1" icon={<HomeOutlined/>}>
+                <Link to={'/'}></Link>
+                </Menu.Item>
+              
+                <Menu.Item key="2">
                   <Link to='/btc'>BTC</Link>
                 </Menu.Item>
-                <Menu.Item key="2">
+                <Menu.Item key="3">
                   <Link to='/eth'>ETH</Link>
                 </Menu.Item>
-                <Menu.Item key="3">
+                <Menu.Item key="4">
                   <Link to='/ltc'>LTC</Link>
                 </Menu.Item>
               </Menu>
             </Col>
             <Col span={12}>
-              <Menu theme="dark" mode="horizontal" style={{ textAlign: "right" }}>
+              <Menu theme="dark" mode="horizontal" style={{ textAlign: "right" }} selectable={false}>
                 {/* react fragments <> */}
                 {!user ?
                   <>
-                    <Menu.Item key="1">
+                    <Menu.Item key="5">
                       <Link to='/login'>Login</Link>
                     </Menu.Item>
-                    <Menu.Item key="2">
+                    <Menu.Item key="6">
                       <Link to='/signup'>Signup</Link>
                     </Menu.Item>
                   </> : null}
@@ -55,10 +61,10 @@ function LayoutApp({ children }) {
                 {/* react fragments   <> */}
                 {user ?
                   <>
-                    <Menu.Item key="3">
+                    <Menu.Item key="7">
                       <Link to='/profile'>Profile</Link>
                     </Menu.Item>
-                    <Menu.Item key="5" onClick={handleLogout}>Logout </Menu.Item>
+                    <Menu.Item key="8" onClick={handleLogout}>Logout </Menu.Item>
                   </> : null}
 
               </Menu>
