@@ -5,6 +5,7 @@ import { useContextData } from '../hooks/context'
 import { getUserPost } from '../services/post'
 import PostCard from '../components/PostCard'
 import CreatePostForm from '../components/createPostForm'
+import UpdatePostForm from '../components/UpdatePostForm'
 
 
 const { Title, Text } = Typography
@@ -18,75 +19,71 @@ const Profile = () => {
 
   useEffect(() => {
     async function getPosts() {
-      const {data}= await getUserPost()
-      setPosts(data);
+      const { data } = await getUserPost()
+      setPosts(data.reverse());
 
     }
 
     getPosts()
   }, [])
 
-  // const postsFiltered={
-  //   'POSTES': [],
-  // }
+  const postF = []
 
-  function addPost(post){
-    setPosts([post,...posts])
+  function addPost(post) {
+    setPosts([post, ...posts])
     console.log(posts)
     setShowModal(false)
 
   }
+   
 
-  // posts.forEach (post => {
-  //   postsFiltered[post.status]= [...postsFiltered[post.status], post]
-  // })
-
-  // posts.forEach(post =>{
-  //   posts=[...posts,post]
-  // })
- 
 
   return (
     <Row gutter={[16, 16]}>
-    <Col span="24">
-    <Button type="dash" bloc size="middle" onClick={() => setShowModal(true)}> + </Button>
-    </Col>
-      <Col xs={24} sm={24} md={8}>
-      
-        <Card title="Postes">
-        {/* {posts.map(post => <PostCard {...post} />)} */}
-        {posts ? posts.map(post => <p>{post.title}</p>): "loading"}
-        
-       
+      <Col span="24">
 
-       
-       
-        
-
-        </Card>
       </Col>
-      <Col xs={24} sm={24} md={8}>
-        <Card title="test2">
-
-        </Card>
-      </Col>
-      <Col xs={24} sm={24} md={8}>
+      <Col xs={24} sm={24} md={12}>
         <Card title="tes3">
-        
+
 
         </Card>
-      
+
       </Col>
+
+
+
+
+      <Col xs={24} sm={24} md={12}>
+      
+
+        <Card title="Posts">
+        <Button type="dash" block style={{marginBottom:"10px"}} onClick={() => setShowModal(true)}> Make a Post!!!</Button>
+          
+          {posts ? posts.map(post => <PostCard key={post._id} {...post} />) : "loading"}
+          {/* {posts ? posts.map(post => <p>{post.title}</p>): "loading"} */}
+
+          
+          
+
+
+        </Card>
+      </Col>
+
+
 
       <Modal visible={showModal}
         title="Create a new post"
         onOk={() => setShowModal(false)}
         onCancel={() => setShowModal(false)}
       >
-      <CreatePostForm addPost={addPost}/>
+        <CreatePostForm addPost={addPost} />
+
+        
 
 
       </Modal>
+      
 
 
     </Row>
