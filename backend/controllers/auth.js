@@ -6,7 +6,11 @@ const passport = require('passport');
 const {userRegister}=require('../config/nodemailer')
 
 exports.signup = async (req, res) => {
-  const newUser= await User.register(req.body, req.body.password)
+  const newUser= await User.register(req.body, req.body.password, function(err){
+    if(err){
+      res.status(501).json({message:'There was an error while registering please try again with a different email or password'})
+    }
+  })
   //const password=null
   await userRegister(req.body.name, req.body.email)
   res.status(201).json(newUser)
@@ -23,6 +27,7 @@ exports.login = async (req, res, next) => {
         .json({ message: 'Something went wrong ' })
     }
     if (!user) {
+      console.log(failureDetails)
       return res.status(401).json(failureDetails)
     }
 
