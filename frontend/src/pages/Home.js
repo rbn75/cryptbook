@@ -3,6 +3,7 @@ import axios from 'axios'
 import { LoadingOutlined, ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import { Spin, Row, Col,List, Avatar, Typography, Button, Modal, Card, PageHeader, Statistic, Divider  } from 'antd';
 import { useContextData } from '../hooks/context';
+import {getUserPost} from '../services/post'
 
 //URLs for external APIs
 let newsURL='https://feed.cryptoquote.io/api/v1/news/headlines?key=778fae00-359b-11eb-a7c8-83b5e7f8291c'
@@ -18,6 +19,7 @@ function Home() {
   const [bitcoinP, setBitcoinP]=useState(null)
   const [litecoinP, setLitecoinP]=useState(null)
   const [ethereumP, setEthereumP]=useState(null)
+  const [posts, setPosts]=useState(null)
 
 
   //User context data
@@ -46,18 +48,24 @@ function Home() {
       setEthereumP(data[0])
     }
 
+    async function getPosts(){
+      const {data}=await getUserPost()
+      setPosts(data.reverse()
+      .slice(0,4))
+      console.log(data)
+    }
+
     getNews()
     getBitcoinP()
     getLitecoinP()
     getEthereumP()
+    getPosts()
   },[])
 
 
   return (
     <div>
-          <PageHeader
-      ghost={false}
-    >
+    <div>
        <Row>
          <Col span={12} >
          <Text type="primary">Last prices</Text>
@@ -135,9 +143,10 @@ function Home() {
         </div>
          </Col>
          </Row>
+         </div>
       
-    </PageHeader>
       <Row>
+        <Col span={18} style={{padding:"20px 40px"}}>
       {news? <List
       grid={{column: 2 }}
       itemLayout="horizontal"
@@ -168,6 +177,30 @@ function Home() {
   )}
   />:<LoadingOutlined style={{ fontSize: 24 }} spin />
   }
+  </Col>
+  <Col span={6} style={{padding:"0 10px 30px 0"}}>
+    <Title type="primary" style={{textAlign:"right"}}>Latest Articles</Title>
+    {posts? 
+    <List
+    itemLayout="vertical"
+    size="large"
+    dataSource={posts}
+    renderItem={i=>(
+      <List.Item
+      key={i._id}>
+        <List.Item.Meta
+        title={i.title}
+        description={i.comment}
+        style={{textAlign:"right"}}
+        />
+      </List.Item>
+    )}
+    />:<LoadingOutlined style={{ fontSize: 24 }} spin />
+    }
+  </Col>
+  </Row>
+  <Row>
+    
   </Row>
      
     </div>
