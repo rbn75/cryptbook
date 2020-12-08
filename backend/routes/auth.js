@@ -12,26 +12,30 @@ const { signup,
     googleCb 
 } = require('../controllers/auth')
 
+const {
+    catchErrs
+}=require('../middlewares/auth')
+
 
 
 
 //Login route
-router.post("/login", login);
+router.post("/login", catchErrs(login));
 
 //Signup route
-router.post("/signup", signup);
+router.post("/signup", catchErrs(signup));
 
 //Logged In user
-router.get('/current-user', currentUser)
+router.get('/current-user', catchErrs(currentUser))
 
 //Update user
-router.put('/userUpdate', updateUser)
+router.put('/userUpdate', catchErrs(updateUser))
 
 //Logout user
-router.get("/logout", logout);
+router.get("/logout", catchErrs(logout));
 
 //Google authentication routes
-router.get('/google', googleInit)
-router.get('/google/callback', googleCb)
+router.get('/auth/google', catchErrs(googleInit))
+router.get('/auth/google/callback', catchErrs(googleCb))
 
 module.exports = router;

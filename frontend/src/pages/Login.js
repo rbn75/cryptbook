@@ -1,27 +1,52 @@
 import React from 'react'
-import { Row, Col, Form, Input, Button, Typography, Divider } from 'antd'
+import { Row, Col, Form, Input, Button, Typography, Divider, message } from 'antd'
 import { loginFn } from '../services/auth'
 import { useContextData } from '../hooks/context'
 
 const { Title } = Typography
+
+const googleUrl = process.env.NODE_ENV === 'development' ?
+  "http://localhost:3000/auth/google" : '/auth/google'
+
+  const validateMessages = {
+    required: '${label} is required!',
+    types: {
+      email: '${label} is not a valid email!'
+    }
+  };
+
+  const errormessage=(errmessage)=>{
+    message.error(errmessage)
+  }
 
 const Login = ({ history }) => {
   const [form] = Form.useForm()
   const { login } = useContextData()
 
   async function handleSubmit(userInput) {
-    const { data } = await loginFn(userInput)
-    login(data);
-    history.push('/profile')
+    const  data  = await loginFn(userInput)
+    .then(data=>{
+      console.log(data)
+      login({data})
+      history.push('/profile')
+    })
+    .catch(err=>{
+      const errorInfo=err.response.data.message
+      console.log(errorInfo)
+      errormessage(errorInfo)
+    })
+
+    // ,
+    // )
+   
   }
 
   return (
-    <Row>
-      <Col span={24}>
+    <Row type="flex" justify="center" align="middle">      
+      <Col xs={24} sm={24}md={12}lg={8}>
         <Title level={1}>Login</Title>
-      </Col>
-      <Divider />
-      <Col span={24}>
+        <Divider />
+      <div style={{justifyContent:"center"}}>
         <Form layout="vertical" form={form} onFinish={handleSubmit}>
           <Form.Item name='email' label="Email:">
             <Input />
@@ -33,6 +58,13 @@ const Login = ({ history }) => {
             Login
           </Button>
         </Form>
+        <Divider>
+          Or
+        </Divider>
+        <a href={googleUrl}>
+          <Button block>Login with Google</Button>
+        </a>
+        </div>
       </Col>
     </Row>
   )
