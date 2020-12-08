@@ -31,7 +31,7 @@ router.put('/userUpdate', updateUser)
 router.get("/logout", logout);
 
 //Google authentication routes
-router.get('/google', googleInit)
-router.get('/google/callback', googleCb)
+router.get('/auth/google', googleInit)
+router.get('/auth/google/callback', googleCb)
 
 module.exports = router;

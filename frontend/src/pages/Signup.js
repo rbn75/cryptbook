@@ -3,6 +3,9 @@ import { Row, Col, Form, Input, Button, Typography, Divider } from 'antd'
 import { signupFn } from '../services/auth'
 const { Title } = Typography
 
+const googleUrl = process.env.NODE_ENV === 'development' ?
+"http://localhost:3000/auth/google" : '/auth/google'
+
 function Signup({ history }) {
     const [form] = Form.useForm()
 
@@ -11,14 +14,17 @@ function Signup({ history }) {
         await signupFn(userInput)
         history.push('/login')
     }
+    const layout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 },
+    };
 
     return (
-        <Row>
-      <Col span={24}>
+        <Row type="flex" justify="center" align="middle">
+      <Col xs={24} sm={24}md={12}lg={8}>
         <Title level={1}>Signup</Title>
-      </Col>
       <Divider />
-      <Col span={24}>
+      <div >
         <Form layout="vertical" form={form} onFinish={handleSubmit}>
           <Form.Item name='email' label="Email:">
             <Input />
@@ -30,6 +36,13 @@ function Signup({ history }) {
             Signup
           </Button>
         </Form>
+        <Divider>
+          Or
+        </Divider>
+        <a href={googleUrl}>
+          <Button block>Singup with Google</Button>
+        </a>
+        </div>
       </Col>
     </Row>
     )
