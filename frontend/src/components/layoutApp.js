@@ -74,7 +74,7 @@ function LayoutApp({ children }) {
         <Content style={{ padding: '10px 20px' }}>
           <div className="site-layout-content">{children}</div>
         </Content>
-        {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}
+        <Footer style={{ textAlign: 'center' }}>Created by <a href="https://github.com/Luizzmy" target="_blank">Gabriel Valenzuela</a> & Rubén Rodríguez</Footer> 
       </Layout>
     </div>
   )
