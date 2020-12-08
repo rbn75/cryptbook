@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios'
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined, ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import { Spin, Row, Col,List, Avatar, Typography, Button, Modal, Card, PageHeader, Statistic, Divider  } from 'antd';
 import { useContextData } from '../hooks/context';
 
@@ -37,14 +37,12 @@ function Home() {
     }
 
     async function getLitecoinP(){
-      const {data}=await axios.get(priceURL+"/GEMINI_SPOT_LTC_USD/latest",
-      {headers:{'X-CoinAPI-Key': "977F32DF-8B2A-4AB3-B2EC-6997426FE65D" }})
+      const {data}=await axios.get(statsURL+"/ltcusd.bitstamp?key=778fae00-359b-11eb-a7c8-83b5e7f8291c")
       setLitecoinP(data[0])
     }
 
     async function getEthereumP(){
-      const {data}=await axios.get(priceURL+"/GEMINI_SPOT_ETH_USD/latest",
-      {headers:{'X-CoinAPI-Key': "977F32DF-8B2A-4AB3-B2EC-6997426FE65D" }})
+      const {data}=await axios.get(statsURL+"/ethusd.bitstamp?key=778fae00-359b-11eb-a7c8-83b5e7f8291c")
       setEthereumP(data[0])
     }
 
@@ -61,6 +59,16 @@ function Home() {
       ghost={false}
     >
        <Row>
+         <Col span={12} >
+         <Text type="primary">Last prices</Text>
+         </Col>
+         <Col span={12} >
+         <Text type="primary">24hr changes</Text>
+         </Col>
+         </Row>
+       <Row style={{justifyContent:"space-around"}}>
+       <Col span={12}>
+         <div style={{display:"flex"}}>
          <Statistic
           title="BTC"
           prefix="$"
@@ -74,7 +82,7 @@ function Home() {
           title="LTC"
           prefix="$"
           suffix="USD"
-          value={litecoinP? litecoinP.price:"-"}
+          value={litecoinP? litecoinP.last:"-"}
           style={{
             margin: '0 32px',
           }}
@@ -83,37 +91,51 @@ function Home() {
           title="ETH"
           prefix="$"
           suffix="USD"
-          value={ethereumP? ethereumP.price:"-"}
+          value={ethereumP? ethereumP.last:"-"}
           style={{
             margin: '0 32px',
           }}
         />
-        <Divider type="vertical" />
-                 <Statistic
+         </div>
+         </Col>
+
+        <Col span={10}>
+          <div style={{display:"flex"}}>
+          <Statistic
           title="BTC"
-          prefix="%"
-          value={568.08}
+          value={bitcoinP? bitcoinP.change.percentage:"-"}
+          precision={2}
+          valueStyle={bitcoinP? bitcoinP.change.percentage>0? {color:"#3f8600"}:{ color: '#cf1322' }:{}}
+          prefix={bitcoinP? bitcoinP.change.percentage>0? <ArrowUpOutlined/>:<ArrowDownOutlined/>:""}
+          suffix="%"
           style={{
             margin: '0 32px',
           }}
         />
         <Statistic
           title="LTC"
-          prefix="%"
-          value={568.08}
+          suffix="%"
+          value={litecoinP? Math.round(litecoinP.change.percentage*100)/100:"-"}
           style={{
             margin: '0 32px',
           }}
+          valueStyle={litecoinP? litecoinP.change.percentage>0? {color:"#3f8600"}:{ color: '#cf1322' }:{}}
+          prefix={litecoinP? litecoinP.change.percentage>0? <ArrowUpOutlined/>:<ArrowDownOutlined/>:""}
         />
         <Statistic
           title="ETH"
-          prefix="%"
-          value={568.08}
+          suffix="%"
+          value={ethereumP? Math.round(ethereumP.change.percentage*100)/100:"-"}
           style={{
             margin: '0 32px',
           }}
+          valueStyle={ethereumP? ethereumP.change.percentage>0? {color:"#3f8600"}:{ color: '#cf1322' }:{}}
+          prefix={ethereumP? ethereumP.change.percentage>0? <ArrowUpOutlined/>:<ArrowDownOutlined/>:""}
         />
-      </Row>
+        </div>
+         </Col>
+         </Row>
+      
     </PageHeader>
       <Row>
       {news? <List
