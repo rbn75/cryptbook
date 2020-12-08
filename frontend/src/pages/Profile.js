@@ -14,6 +14,7 @@ const Profile = () => {
   const { user } = useContextData
   let [posts, setPosts] = useState([])
   const [showModal, setShowModal] = useState(false)
+  const [showUptadeModal, setShowUpdateModal]=useState(false)
 
 
 
@@ -35,7 +36,7 @@ const Profile = () => {
     setShowModal(false)
 
   }
-   
+
 
 
   return (
@@ -44,7 +45,8 @@ const Profile = () => {
 
       </Col>
       <Col xs={24} sm={24} md={12}>
-        <Card title="tes3">
+        <Card title="Profile">
+        
 
 
         </Card>
@@ -55,17 +57,15 @@ const Profile = () => {
 
 
       <Col xs={24} sm={24} md={12}>
-      
+
 
         <Card title="Posts">
-        <Button type="dash" block style={{marginBottom:"10px"}} onClick={() => setShowModal(true)}> Make a Post!!!</Button>
-          
+          <Button type="dash" block style={{ marginBottom: "10px" }} onClick={() => setShowModal(true)}> Make a Post!!!</Button>
+
           {posts ? posts.map(post => <PostCard key={post._id} {...post} />) : "loading"}
           {/* {posts ? posts.map(post => <p>{post.title}</p>): "loading"} */}
 
-          
-          
-
+          {/* <Button type="dash" block style={{ marginBottom: "10px" }} onClick={() => setShowUpdateModal(true)}> Update a Post!!!</Button> */}
 
         </Card>
       </Col>
@@ -79,11 +79,19 @@ const Profile = () => {
       >
         <CreatePostForm addPost={addPost} />
 
-        
+      </Modal>
 
+      <Modal visible={showUptadeModal}
+        title="Update a new post"
+        onOk={() => setShowUpdateModal(false)}
+        onCancel={() => setShowUpdateModal(false)}
+      >
+        <UpdatePostForm  />
 
       </Modal>
-      
+
+
+
 
 
     </Row>

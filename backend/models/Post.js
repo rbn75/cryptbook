@@ -7,14 +7,7 @@ const postSchema= new Schema({
     },
     title:String,
     comment:String,
-    image:String,status: {
-    type: String,
-    status: {
-        type: String,
-        enum: ['POSTES']
-      }
-    
-  }
+    image:String,
 
 
     

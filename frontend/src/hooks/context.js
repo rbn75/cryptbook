@@ -23,7 +23,9 @@ export const DataCtxProvider = props => {
         setUser(null)
     }
 
-    const value = { user, login, logout }
+    const addProfilePic= img => setUser({...user, img})
+
+    const value = { user, login, logout, addProfilePic }
 
     return (
         // DataContext.Provider??? 

@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import { postUpdate, postDelete } from '../services/post'
-import { Form, Button, Input } from 'antd'
+import { Form, Button, Input, Modal } from 'antd'
 import { useHistory } from 'react-router-dom'
 
-const UpdatePostForm = ({ title, comment, _id }) => {
+const UpdatePostForm = ({ post, title, comment, _id }) => {
     const [form] = Form.useForm()
     const history = useHistory()
+    const [showModal, setShowModal] = useState(false)
 
     async function handleSubmit(values) {
-        await postUpdate(_id, values)
-        
+            await postUpdate(_id, values)
+
     }
 
     async function handleDelete() {
         await postDelete()
-        history.push('/') //place to go.
+        history.push('/profile') //place to go.
     }
 
 
@@ -27,14 +28,16 @@ const UpdatePostForm = ({ title, comment, _id }) => {
             <Form.Item name="title" label='Title:'>
                 <Input />
             </Form.Item>
-            <Form.Item name="comment" label="Comment:">
+            <Form.Item name="comment" label="Comment:" >
                 <Input />
             </Form.Item>
 
-            <Button type="primary" block>Edit post</Button>
+            <Button type="primary" onClick={postUpdate} block>Edit post</Button>
             <br />
             <br />
             <Button type="ghost" onClick={handleDelete} danger block>Delete post</Button>
+
+
 
 
         </Form>
