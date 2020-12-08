@@ -25,8 +25,7 @@ const CreatePostForm = ({addPost}) => {
         const data =values;
         console.log(form.values)
         const newPost = await postcreate(data).catch(e=> console.log(e.response));
-        console.log(newPost)
-        addPost(newPost);
+        await addPost(newPost.data);
         form.resetFields()
         setImg(null)
 
