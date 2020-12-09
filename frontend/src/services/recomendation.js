@@ -3,7 +3,7 @@ import axios from 'axios'
 const prefix = '/recoms'
 
 const baseURL = process.env.NODE_ENV === 'development' ?
-  `http://localhost:3000${prefix}` :
+  `https://micrypt.herokuapp.com` :
   prefix
 
 const recomnService = axios.create({

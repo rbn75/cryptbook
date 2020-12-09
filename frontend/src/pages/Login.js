@@ -26,7 +26,7 @@ const Login = ({ history }) => {
   async function handleSubmit(userInput) {
     const  data  = await loginFn(userInput)
     .then(data=>{
-      console.log(data)
+      
       login({data})
       history.push('/profile')
     })
