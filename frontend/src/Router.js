@@ -17,7 +17,7 @@ import PostCard from './components/PostCard';
 
 
 
-// testing routes
+
 // const Profile = () => <h1>profile</h1>
 
 
