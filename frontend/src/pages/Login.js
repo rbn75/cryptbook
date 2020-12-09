@@ -40,7 +40,6 @@ const Login = ({ history }) => {
     // )
    
   }
-
   return (
     <Row type="flex" justify="center" align="middle">      
       <Col xs={24} sm={24}md={12}lg={8}>
@@ -48,10 +47,10 @@ const Login = ({ history }) => {
         <Divider />
       <div style={{justifyContent:"center"}}>
         <Form layout="vertical" form={form} onFinish={handleSubmit}>
-          <Form.Item name='email' label="Email:">
+          <Form.Item name='email' label="Email:" rules={[{required:true, type:'email', message:'please input your email'}]}>
             <Input />
           </Form.Item>
-          <Form.Item name='password' label="Password:">
+          <Form.Item name='password' label="Password:" rules={[{required:true, message:'password is required'}]}>
             <Input.Password />
           </Form.Item>
           <Button type="primary" block htmlType="submit">

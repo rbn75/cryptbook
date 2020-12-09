@@ -31,28 +31,28 @@ function EditRecomForm({item, curr}) {
 
     return (
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
-        <Form.Item name="title" label="Title:" initialValue={item.title}>
+        <Form.Item name="title" label="Title:" initialValue={item.title} rules={[{required:true, }]}>
           <Input />
         </Form.Item>
-        <Form.Item placeholder="Price estimate" name="estimate" label="Price estimate:" initialValue={item.estimate}>
-          <InputNumber
+        <Form.Item placeholder="Price estimate" name="estimate" label="Price estimate:" initialValue={item.estimate} rules={[{ required: true, message: 'number required' }, {type:"number"},]}>
+          <InputNumber min={1} max={999999}
           formatter={value=>`$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           parser={value=>value
           .replace(/\$\s?|(,*)/g, '')}/>
         </Form.Item>
-        <Form.Item placeholder="Current price" name="actual" label="Actual price:" initialValue={item.actual}>
-          <InputNumber 
+        <Form.Item placeholder="Current price" name="actual" label="Actual price:" initialValue={item.actual} rules={[{ required: true, message: 'number required' }, {type:"number"},]}>
+          <InputNumber min={1} max={999999}
           formatter={value=>`$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           parser={value=>value
           .replace(/\$\s?|(,*)/g, '')}/>
         </Form.Item>
-        <Form.Item placeholder="Surprise" name="surprise" label="Surprise price:" initialValue={item.surprise}>
-          <InputNumber 
+        <Form.Item placeholder="Surprise" name="surprise" label="Surprise price:" initialValue={item.surprise} rules={[{ required: true, message: 'number required' }, {type:"number"},]}>
+          <InputNumber min={1} max={999999}
           formatter={value=>`$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           parser={value=>value
           .replace(/\$\s?|(,*)/g, '')}/>
         </Form.Item>
-        <Form.Item name="recomendation" label="Recomendation: " initialValue={item.recomendation}>
+        <Form.Item name="recomendation" label="Recomendation: " initialValue={item.recomendation} rules={[{required:true, }]}>
           <Select>
             <Select.Option value="Buy">Buy</Select.Option>
             <Select.Option value="Sell">Sell</Select.Option>

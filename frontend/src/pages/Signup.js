@@ -9,9 +9,17 @@ const googleUrl = process.env.NODE_ENV === 'development' ?
 const validateMessages = {
   required: '${label} is required!',
   types: {
-    email: '${label} is not a valid email!'
-  }
+    email: '${label} is not a valid email!',
+    number: '${label} is not a valid number!'
+  },
+  number: {
+    range: '${Password} must be between ${3} and ${5}',
+  },
+
+
 };
+
+
 
 const erromessage=(errmessage)=>{
   message.error(errmessage)
@@ -53,7 +61,7 @@ function Signup({ history }) {
           <Form.Item name='email' label="Email:" rules={[{required:true, type:"email"}]}>
             <Input />
           </Form.Item>
-          <Form.Item name='password' label="Password:" rules={[{required: true, message: 'Please input your password!'}]}>
+          <Form.Item name='password' label="Password:" rules={[{ required: true, message: 'Please input your username!' }, { min: 5, message: 'Password must be minimum 5 characters.' },]} >
             <Input.Password />
           </Form.Item>
           <Button type="primary" block htmlType="submit">
@@ -64,7 +72,7 @@ function Signup({ history }) {
           Or
         </Divider>
         <a href={googleUrl}>
-          <Button block>Singup with Google</Button>
+          <Button block>Signup with Google</Button>
         </a>
         </div>
       </Col>
