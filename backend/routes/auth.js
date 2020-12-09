@@ -32,10 +32,10 @@ router.get('/current-user', catchErrs(currentUser))
 router.put('/userUpdate', catchErrs(updateUser))
 
 //Logout user
-router.get("/logout", catchErrs(logout));
+router.get("/logout", logout);
 
 //Google authentication routes
-router.get('/auth/google', catchErrs(googleInit))
-router.get('/auth/google/callback', catchErrs(googleCb))
+router.get('/auth/google', googleInit)
+router.get('/auth/google/callback', googleCb)
 
 module.exports = router;
