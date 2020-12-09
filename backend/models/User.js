@@ -7,10 +7,7 @@ const userSchema = new Schema(
     name: String,
     lastname: String,
     googleID:String,
-    image:{
-      type:String,
-      default:'./images/ProfilePic.png'
-    },
+    image:String,
     posts:[{
       type: Schema.Types.ObjectId,
       ref:"Post"
